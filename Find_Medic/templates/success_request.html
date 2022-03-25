@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+ {% for message in messages %}
+
+{% if message.tags == 'error' %}
+    <p style="color: red;">{{message}} at {{date}}</p>
+{% elif message.tags == 'info' %}
+    {% comment %} <script>
+        window.onload = function(){
+            alert('{{message}} {{user.username}}')
+        }
+    </script>  {% endcomment %}
+    
+    {% comment %} <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong>Success!</strong> {{message}}. {% endcomment %}
+    {% comment %} </div> {% endcomment %}
+{% endif %}
+{% endfor %}
+<span style="text-align: center;">	&#9989;</span>
+    <h1> Request sent Successfully! </h1>
+    <a href="/Find_Medic/view_my_request">click to see request</a>
+
+{% endblock %}

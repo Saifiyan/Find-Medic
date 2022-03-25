@@ -1,0 +1,42 @@
+{% extends 'patientdetails_generic.html' %}
+{% load static %}
+{% block title %}View User Request{% endblock %}
+
+{% block content %}
+
+
+
+     <div class="profile-info col-md-8">
+            <div class="panel">
+             {% comment %}   <div class="panel-body bio-graph-info">
+                        <div class="row"> {% endcomment %}
+                                
+            <div class="box shadow-sm rounded bg-white mb-3">
+                <div class="box-title border-bottom p-3">
+                    <h4 class="m-0">Recent</h4>
+                </div>
+        {% for ob in obj %}
+                {% if user.id == ob.pid and ob.request %}
+                    <div class="alert" style="background-color: lightblue; color: green;">
+                    <span><a href=""><strong>{{ob.doctorname}}</strong></a></span>
+                   </div> 
+                     
+                   
+                
+        {% endfor %}
+                    </div>
+                </div>
+            </div>            
+
+
+                    {% comment %} </div>
+                </div>{% endcomment %}
+            </div>
+        </div> 
+
+
+
+{% endblock  %}
+
+
+

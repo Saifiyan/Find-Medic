@@ -1,0 +1,132 @@
+{% extends 'base_generic.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+                        <div class="bg-white card mb-4 order-list shadow-sm">
+                            <div class="gold-members p-4">
+                                <a href="#">
+                                </a>
+                                <div class="media">
+                                    <a href="#">
+                                        <img class="mr-4" src="{{docinfo.photo}}" alt="Generic placeholder image">
+                                    </a>
+                                    <div class="media-body">
+                                       
+                                        <h4 class="mb-2" style="text-align: center;">
+                                            <a href="#"></a>
+                                            Confirm all Details<hr>
+                                        </h4>
+                                            {% comment %} <p class="text-black">{{object.user.first_name}}</p> {% endcomment %}<h5 class="mb-2" style="">
+                                            <a href="#"></a>
+                                            Doctor's Details :-
+                                        </h5>
+                                        <hr>
+                                        <div class="bio-row">
+                                            <p><span>Name </span>: {{docinfo.user.first_name}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Specialist </span>: {{docinfo.specialist}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Studied </span>: {{docinfo.degree}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Email </span>: {{docinfo.user.email}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Address </span>: {{docinfo.address}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>City </span>: {{docinfo.city}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>State </span>: {{docinfo.state}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Checkup Fee </span>: ₹{{docinfo.fee}}</p>
+                                        </div>
+
+                                        
+                                        
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="gold-members p-4">
+                                <a href="#">
+                                </a>
+                                <div class="media">
+                                    <a href="#">{% load static %}
+                                        <img class="mr-4" src="{% static 'images/profile-icon.svg' %}" alt="">
+                                    </a>
+                                    <div class="media-body">
+                                       <hr>
+                                            {% comment %} <p class="text-black">{{object.user.first_name}}</p> {% endcomment %}<h5 class="mb-2" style="">
+                                            <a href="#"></a>
+                                            Your Details :-
+                                        </h5>
+                                        
+                                        
+                                        {% if user.usertype.usertype == "user" %}
+                                            <hr>
+                                                <div class="bio-row">
+                                                    <p><span>Name </span>: {{user.first_name}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>Age </span>: {{user.userprofile.age}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>Gender </span>: {{user.userprofile.gender}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>D.O.B </span>: {{user.userprofile.dob}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>Blood Group </span>: {{user.userprofile.bgroup}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>Contact </span>: {{user.userprofile.contno}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>Address </span>: {{user.userprofile.address}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>City </span>: {{user.userprofile.city}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>State </span>: {{user.userprofile.state}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>to change </span><a href="{% url 'edituser' %}">click</a></p>
+                                                </div>
+                                                
+                                        {% else %}
+                                                    <h6>You can register as a User, Dr. {{user.first_name}} ! <a href="/Find_Medic/login">click</a></h6>
+                                        {% endif %}
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        {% comment %}  {% endcomment %}
+                                        <div class="float-right">
+                                            <a class="btn btn-sm btn-outline-primary" href="{% url 'BrowseDoctors' %}"><i class="icofont-headphone-alt"></i> BACK</a>
+                                            <a class="btn btn-sm btn-primary" href=""><i class="icofont-refresh"></i>  CONFIRM  </a>
+                                        </div>
+                                        <p class="mb-0 text-black text-primary pt-2"><span class="text-black font-weight-bold">Checkup Fee :</span> ₹{{object.user.doctorprofile.fee}}
+                                        </p>
+
+{% else %}
+<h2>You need to log In first !</h2>
+<a href="/Find_Medic/login">Click here to login</a>
+{% endif %}
+
+
+{% endblock %}

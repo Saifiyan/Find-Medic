@@ -1,0 +1,718 @@
+{% extends 'patientdetails_generic.html' %}
+{% load static %}
+{% block title %}View User Request{% endblock %}
+
+{% block content %}
+<div class="loading-container">
+    <div class="loading-progress">
+        <div class="rotator">
+            <div class="rotator">
+                <div class="rotator colored">
+                    <div class="rotator">
+                        <div class="rotator colored">
+                            <div class="rotator colored"></div>
+                            <div class="rotator"></div>
+                        </div>
+                        <div class="rotator colored"></div>
+                    </div>
+                    <div class="rotator"></div>
+                </div>
+                <div class="rotator"></div>
+            </div>
+            <div class="rotator"></div>
+        </div>
+        <div class="rotator"></div>
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+
+
+     <div class="profile-info col-md-8">
+            <div class="panel">
+             {% comment %}   <div class="panel-body bio-graph-info">
+                        <div class="row"> {% endcomment %}
+                <h5 style="text-align: right"><strong>{% now "N j o, l" %}</strong>&nbsp;&nbsp;<strong id="txt"></strong>&nbsp;&nbsp;&nbsp;</h5>
+                         <label for="chk1">
+                        &nbsp;&nbsp;&nbsp;<input type="radio" id="chk1" name="chk" onclick="ShowHideDiv()" />
+                        Today's
+                        </label>
+                        <label for="chk2">
+                        &nbsp;&nbsp;&nbsp;<input type="radio" id="chk2" name="chk" onclick="ShowHideDiv()" />
+                        Upcoming
+                        </label>       
+                        <label for="chk3">
+                        &nbsp;&nbsp;&nbsp;<input type="radio" id="chk3" name="chk" onclick="ShowHideDiv()" />
+                        Requested
+                        {% comment %}{% for object in patientdetails_list %}
+                        {% if user.usertype.usertype == "doctor" and not object.request and object.did == user.id and object.datecome %}
+                        {% with count=3 %}     
+                        {{ count }}
+                        
+                         {{count=count+1}} 
+                        {% endwith count=count+1 %}
+                        {% endif %}
+                        {% endfor %}{% endcomment %}
+                        </label>       
+                        <label for="chk4">
+                        &nbsp;&nbsp;&nbsp;<input type="radio" id="chk4" name="chk" onclick="ShowHideDiv()" />
+                        Missed
+                        </label>       
+                        <label for="chkatn">
+                        &nbsp;&nbsp;&nbsp;<input type="radio" id="chkatn" name="chk" onclick="ShowHideDiv()" />
+                        Attended
+                        </label>       
+                        <label for="chkall">
+                        &nbsp;&nbsp;&nbsp;<input type="radio" id="chkall" name="chk" onclick="ShowHideDiv()" checked>
+                        All
+                        </label>      
+
+            <div class="box shadow-sm rounded bg-white mb-3" id="dvtext1" style="display: none">
+                <div class="box-title border-bottom p-3"><hr>
+                    <h4 class=""> &nbsp;&nbsp;&nbsp; <strong>  Today's Appointments</strong></h4><hr>
+                    <ul>
+                    <li style="width: 125px; padding-left: 10px;"><h5>Patient Name</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Date</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Time</h5></li>
+                    <li style="width: 70px;"><h5>City</h5></li>
+                    <ul>
+                </div>
+
+             {% for object in patientdetails_list %}
+                {% if user.usertype.usertype == "doctor" and object.request and object.did == user.id and object.is_past_due %}
+                        <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li> | {{object.pid}}/{{object.id}}</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        </div>
+                {% elif user.usertype.usertype == "user" and object.request and object.pid == user.id and object.is_past_due %}
+                        <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'generateinvoice' object.id %}"><span class="closebtn" onclick="">&#10515;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <a href="#Accepted"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                           <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li>| Dr. {{object.doctorname}} |</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %}          
+                           </ul>
+                        {% comment %} {% if object.date.format_time %}Todays {% else %}kto{% endif %} {% endcomment %}
+                        </div>  
+                {% endif %}
+            {% endfor %}
+
+
+<br>
+            </div>
+
+
+
+
+            <div class="box shadow-sm rounded bg-white mb-3" id="dvtext2" style="display: none">
+                <div class="box-title border-bottom p-3">
+                <hr>
+                    <h4 class=""> &nbsp;&nbsp;&nbsp; <strong>  Upcoming Appointments </strong></h4><hr>
+                    <ul>
+                    <li style="width: 125px; padding-left: 10px;"><h5>Patient Name</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Date</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Time</h5></li>
+                    <li style="width: 70px;"><h5>City</h5></li>
+                    <ul>
+                </div>
+        {% for object in patientdetails_list %}
+                {% if user.usertype.usertype == "doctor" and object.did == user.id and object.request and object.datecome %}
+                            <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        </div> 
+                {% elif user.usertype.usertype == "user" and object.pid == user.id and object.request and object.datecome %}
+                     <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'generateinvoice' object.id %}"><span class="closebtn" onclick="">&#10515;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <a href="#Accepted"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                           <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            <li>| Dr. {{object.doctorname}} |</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        {% comment %} {% if object.date.format_time %}Todays {% else %}kto{% endif %} {% endcomment %}
+                        </div> 
+             {% endif %}
+        {% endfor %}
+        <br>
+                    </div>
+
+            <div class="box shadow-sm rounded bg-white mb-3" id="dvtext3" style="display: none">
+                <div class="box-title border-bottom p-3"><hr>
+                    <h4 class=""> &nbsp;&nbsp;&nbsp; <strong>  Requested Appointments </strong></h4><hr>
+                    <ul>
+                    <li style="width: 125px; padding-left: 10px;"><h5>Patient Name</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Date</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Time</h5></li>
+                    <li style="width: 70px;"><h5>City</h5></li>
+                    <ul>
+                </div>
+
+             {% for object in patientdetails_list %}
+                {% if user.usertype.usertype == "doctor" and not object.request and object.did == user.id and object.datecome %}
+                        <div class="alert" style="background-color: white; color: red;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li> | {{object.pid}}/{{object.id}}</li>
+                           </ul>
+                        </div> 
+                {% elif user.usertype.usertype == "user" and not object.request and object.pid == user.id and object.datecome %}
+                        <div class="alert" style="background-color: white; color: red;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#9998;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <a href="#NotAccepted"><span class="closebtn" onclick="">!</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}                   </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li>| Dr. {{object.doctorname}} |</li>
+                           </ul>
+                        </div> 
+                {% endif %}
+            {% endfor %}
+
+
+<br>
+            </div>
+
+
+            <div class="box shadow-sm rounded bg-white mb-3" id="dvtext4" style="display: none">
+                <div class="box-title border-bottom p-3"><hr>
+                    <h4 class=""> &nbsp;&nbsp;&nbsp; <strong>  Missed/Not Accepted Appointments</strong></h4><hr>
+                    <ul>
+                    <li style="width: 125px; padding-left: 10px;"><h5>Patient Name</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Date</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Time</h5></li>
+                    <li style="width: 70px;"><h5>City</h5></li>
+                    <ul>
+                </div>
+
+             {% for object in patientdetails_list %}
+                {% if user.usertype.usertype == "doctor" and not object.request and object.did == user.id and object.dategone %}
+                        <div class="alert" style="background-color: white; color: red;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li> | {{object.pid}}/{{object.id}}</li>
+                           </ul>
+                        </div>
+                {% elif user.usertype.usertype == "user" and not object.request and object.pid == user.id and object.dategone %}
+                        <div class="alert" style="background-color: white; color: red;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <a href="#Not_Accepted"><span class="closebtn" onclick="">!</span> </a>
+                           <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li>| Dr. {{object.doctorname}} |</li>
+                           </ul>
+                        {% comment %} {% if object.date.format_time %}Todays {% else %}kto{% endif %} {% endcomment %}
+                        </div>  
+                {% endif %}
+            {% endfor %}
+
+
+<br>
+            </div>
+
+  <div class="box shadow-sm rounded bg-white mb-3" id="dvtextatn" style="display: none">
+                <div class="box-title border-bottom p-3"><hr>
+                    <h4 class=""> &nbsp;&nbsp;&nbsp; <strong>  Attended Appointments</strong></h4><hr>
+                    <ul>
+                    <li style="width: 125px; padding-left: 10px;"><h5>Patient Name</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Date</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Time</h5></li>
+                    <li style="width: 70px;"><h5>City</h5></li>
+                    <ul>
+                </div>
+
+             {% for object in patientdetails_list %}
+                {% if user.usertype.usertype == "doctor" and object.request and object.did == user.id and object.dategone %}
+                        <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li> | {{object.pid}}/{{object.id}}</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        </div>
+                {% elif user.usertype.usertype == "user" and object.request and object.pid == user.id and object.dategone %}
+                        <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                           <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li>| Dr. {{object.doctorname}} |</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        {% comment %} {% if object.date.format_time %}Todays {% else %}kto{% endif %} {% endcomment %}
+                        </div>  
+                {% endif %}
+            {% endfor %}
+
+
+<br>
+            </div>
+
+
+{% comment %} ********************************************** {% endcomment %}
+
+<div id="dvtextall" style="">
+                <div class="box shadow-sm rounded bg-white mb-3">
+                <div class="box-title border-bottom p-3"><hr>
+                    <h4 class=""> &nbsp;&nbsp;&nbsp;  <strong> Today's Appointments </strong></h4><hr>
+                    <ul>
+                    <li style="width: 125px; padding-left: 10px;"><h5>Patient Name</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Date</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Time</h5></li>
+                    <li style="width: 70px;"><h5>City</h5></li>
+                    <ul>
+                </div>
+
+             {% for object in patientdetails_list %}
+                {% if user.usertype.usertype == "doctor" and object.request and object.did == user.id and object.is_past_due %}
+                        <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li> | {{object.pid}}/{{object.id}}</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        </div>
+                {% elif user.usertype.usertype == "user" and object.request and object.pid == user.id and object.is_past_due %}
+                        <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'generateinvoice' object.id %}"><span class="closebtn" onclick="">&#10515;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <a href="#Accepted"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                           <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li>| Dr. {{object.doctorname}} |</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        {% comment %} {% if object.date.format_time %}Todays {% else %}kto{% endif %} {% endcomment %}
+                        </div>  
+                {% endif %}
+            {% endfor %}
+
+
+
+            </div>
+
+
+
+
+            <div class="box shadow-sm rounded bg-white mb-3">
+                <div class="box-title border-bottom p-3">
+                <hr>
+                    <h4 class=""> &nbsp;&nbsp;&nbsp; <strong>  Upcoming Appointments </strong></h4><hr>
+                    <ul>
+                    <li style="width: 125px; padding-left: 10px;"><h5>Patient Name</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Date</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Time</h5></li>
+                    <li style="width: 70px;"><h5>City</h5></li>
+                    <ul>
+                </div>
+        {% for object in patientdetails_list %}
+                {% if user.usertype.usertype == "doctor" and object.did == user.id and object.request and object.datecome %}
+                            <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li> | {{object.pid}}/{{object.id}}</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        </div> 
+                {% elif user.usertype.usertype == "user" and object.pid == user.id and object.request and object.datecome %}
+                     <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'generateinvoice' object.id %}"><span class="closebtn" onclick="">&#10515;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <a href="#Accepted"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                           <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li>| Dr. {{object.doctorname}} |</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        {% comment %} {% if object.date.format_time %}Todays {% else %}kto{% endif %} {% endcomment %}
+                        </div> 
+             {% endif %}
+        {% endfor %}
+                    </div>
+
+            <div class="box shadow-sm rounded bg-white mb-3">
+                <div class="box-title border-bottom p-3"><hr>
+                    <h4 class=""> &nbsp;&nbsp;&nbsp; <strong>  Requested Appointments</strong></h4><hr>
+                    <ul>
+                    <li style="width: 125px; padding-left: 10px;"><h5>Patient Name</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Date</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Time</h5></li>
+                    <li style="width: 70px;"><h5>City</h5></li>
+                    <ul>
+                </div>
+
+             {% for object in patientdetails_list %}{% now "N j, o" as today %}
+                {% if user.usertype.usertype == "doctor" and not object.request and object.did == user.id and object.datecome %}
+                        <div class="alert" style="background-color: white; color: red;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li> | {{object.pid}}/{{object.id}}</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        </div> 
+                {% elif user.usertype.usertype == "user" and not object.request and object.pid == user.id and object.datecome %}
+                        <div class="alert" style="background-color: white; color: red;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#9998;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <a href="#NotAccepted"><span class="closebtn" onclick="">!</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}                   </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li>| Dr. {{object.doctorname}} |</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        </div> 
+                {% endif %}
+            {% endfor %}
+
+
+
+            </div>
+
+
+            <div class="box shadow-sm rounded bg-white mb-3">
+                <div class="box-title border-bottom p-3"><hr>
+                    <h4 class=""> &nbsp;&nbsp;&nbsp;  <strong> Missed/Not Accepted Appointments </strong></h4><hr>
+                    <ul>
+                    <li style="width: 125px; padding-left: 10px;"><h5>Patient Name</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Date</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Time</h5></li>
+                    <li style="width: 70px;"><h5>City</h5></li>
+                    <ul>
+                </div>
+
+             {% for object in patientdetails_list %}
+                {% if user.usertype.usertype == "doctor" and not object.request and object.did == user.id and object.dategone %}
+                        <div class="alert" style="background-color: white; color: red;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li> | {{object.pid}}/{{object.id}}</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        </div>
+                {% elif user.usertype.usertype == "user" and not object.request and object.pid == user.id and object.dategone %}
+                        <div class="alert" style="background-color: white; color: red;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="#Not_Accepted"><span class="closebtn" onclick="">!</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                           <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li>| Dr. {{object.doctorname}} |</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        {% comment %} {% if object.date.format_time %}Todays {% else %}kto{% endif %} {% endcomment %}
+                        </div> 
+                         
+                {% endif %}
+            {% endfor %}
+
+
+
+            </div>
+
+            <div class="box shadow-sm rounded bg-white mb-3">
+                <div class="box-title border-bottom p-3"><hr>
+                    <h4 class=""> &nbsp;&nbsp;&nbsp; <strong>  Attended Appointments</strong></h4><hr>
+                    <ul>
+                    <li style="width: 125px; padding-left: 10px;"><h5>Patient Name</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Date</h5></li>
+                    <li style="width: 90px; text-align: center;"><h5>Time</h5></li>
+                    <li style="width: 70px;"><h5>City</h5></li>
+                    <ul>
+                </div>
+
+             {% for object in patientdetails_list %}
+                {% if user.usertype.usertype == "doctor" and object.request and object.did == user.id and object.dategone %}
+                        <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                            <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li> | {{object.pid}}/{{object.id}}</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        </div>
+                {% elif user.usertype.usertype == "user" and object.request and object.pid == user.id and object.dategone %}
+                        <div class="alert" style="background-color: white; color: green;">
+                            <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                            <a href="{{object.get_absolute_url}}"><span class="closebtn" onclick="">&#128065;</span> </a>
+                           <ul>
+                            <li style="width: 125px;"><a href="{{object.get_absolute_url}}"><strong>{{object.name}}              </strong></a></li>
+                            <li style="width: 90px;"> {{object.date}}</li>
+                            <li style="width: 70px;"> {{object.time}}</li>
+                            <li> {{object.city}}</li>
+                            {% if object.payment == "1" %}
+                            |    <li style="color: green;"> Paid : {{object.dfee}} ₹  </li>
+                            {% elif object.payment == "0" %}
+                            | <li>Paid : None</li>
+                            {% endif %}
+                            <li>| Dr. {{object.doctorname}} |</li>
+                            {% if object.give_a_message %}<li>&#128172;</li>{% endif %} 
+                           </ul>
+                        {% comment %} {% if object.date.format_time %}Todays {% else %}kto{% endif %} {% endcomment %}
+                        </div>  
+                {% endif %}
+            {% endfor %}
+
+
+
+            </div>
+
+<br>
+
+
+</div>
+
+{% comment %} ********************************************* {% endcomment %}
+
+
+
+
+
+
+<script>
+function ShowHideDiv() {
+        var chk1 = document.getElementById("chk1");
+        var chk2 = document.getElementById("chk2");
+        var chk3 = document.getElementById("chk3");
+        var chk4 = document.getElementById("chk4");
+        var chkatn = document.getElementById("chkatn");
+        var chkall = document.getElementById("chkall");
+        
+        var dvtext1 = document.getElementById("dvtext1");
+        var dvtext2 = document.getElementById("dvtext2");
+        var dvtext3 = document.getElementById("dvtext3");
+        var dvtext4 = document.getElementById("dvtext4");
+        var dvtextatn = document.getElementById("dvtextatn");
+        var dvtextall = document.getElementById("dvtextall");
+
+        dvtext1.style.display = chk1.checked ? "block" : "none";
+        dvtext2.style.display = chk2.checked ? "block" : "none";
+        dvtext3.style.display = chk3.checked ? "block" : "none";
+        dvtext4.style.display = chk4.checked ? "block" : "none";
+        dvtextatn.style.display = chkatn.checked ? "block" : "none";
+        dvtextall.style.display = chkall.checked ? "block" : "none";
+
+    }
+    
+
+</script>
+
+
+                </div>
+            </div>            
+    {% else %}
+        <p>asdf</p>
+    {% endif %}
+{% comment %} Todays data show "now 'DATE_FORMAT'"" {% endcomment %}
+    {% comment %} {% for date in patientdetails_list %}
+    {%   %}
+    <div class="box shadow-sm rounded bg-white mb-3">
+                <div class="box-title border-bottom p-3">
+                    <h4>Todays</h4>
+                </div>
+    </div>
+
+    {% endif %}
+    
+    {% endfor %} {% endcomment %}
+            </div>
+        </div> 
+
+
+{% endblock  %}
+
+
+

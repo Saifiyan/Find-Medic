@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <title>Invoice Appointment</title>
+<style>
+  .clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+a {
+  text-decoration: underline;
+}
+
+body {
+  position: relative;
+  margin: 0 auto; 
+  color: #001028;
+  background: #FFFFFF; 
+  font-family: Arial, sans-serif; 
+  font-size: 14px; 
+  font-family: Arial;
+}
+
+header {
+  padding: 10px 0;
+  margin-bottom: 30px;
+}
+
+#logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#logo img {
+  width: 90px;
+}
+
+h1 {
+  
+  color: #5D6975;
+  font-size: 2.4em;
+  line-height: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  margin: 0 0 20px 0;
+}
+
+#project {
+  float: left;
+}
+
+#project span {
+  color: #5D6975;
+  text-align: right;
+  width: 52px;
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 14px;
+}
+
+#company {
+  float: right;
+  text-align: right;
+}
+
+#project div,
+#company div {
+  white-space: nowrap;        
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 20px;
+}
+
+
+
+table th,
+table td {
+  text-align: center;
+}
+
+table th {
+  
+  
+  color: #5D6975;
+  border-bottom: 1px solid #C1CED9;
+  white-space: nowrap;        
+  font-weight: normal;
+}
+
+table .service,
+table .desc {
+  text-align: left;
+}
+
+table td {
+ padding-top:5px;
+ padding-bottom:5px;
+  
+}
+
+table tr {
+  border-bottom: 1px solid #C1CED9;
+}
+
+table td.service,
+table td.desc {
+  vertical-align: top;
+}
+
+table td.unit,
+table td.qty,
+table td.total {
+  font-size: 1.2em;
+}
+
+table td.grand {
+  border-top: 1px solid #5D6975;;
+}
+
+#notices .notice {
+  color: #5D6975;
+  font-size: 1.2em;
+}
+
+footer {
+  color: #5D6975;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid #C1CED9;
+  padding: 8px 0;
+  text-align: center;
+}
+
+body {
+    background-image: url('F:\Minor 2\Find_Medic\static\images\accepted.jpg');
+}
+
+  </style>
+</head>
+
+<body>
+  <header class="clearfix">
+  {% comment %} <img src="F:\Minor 2\Find_Medic\static\images\accepted.jpg" width="600" height="1000"> {% endcomment %}
+    <div id="logo" style="display:flex; justify-content:center; align-items:center;">
+      {#<img src="static/firstapp/images/logo.png" class="brand-logo" width=60 height=60>#} <!--not working-->
+      {% comment %} <img src="{% static '/images/logofindmedic.png' %}" class="brand-logo" height="200px"><!--not working--> {% endcomment %}
+      <h1 class="brand-name">Find Medic Appointment Booking Recipt</h1>
+      <img class="float: center;" src="F:\Minor 2\Find_Medic\static\images\logofindmedic.png" class="brand-logo" width="200" height="120">
+    <h2>INVOICE</h2>
+    </div>
+    <div id="company" class="clearfix">
+      <div>INVOICE ID : {{pid}}/{{id}}</div> 
+    </div>
+    {% comment %} <div id="company" class="clearfix">
+      <div>Find Medic</div>
+      <div><a href="mailto:findmedic@example.com">findmedic@example.com</a></div>
+      <div><a href="www.findmedic.in:8000">www.findmedic.in:8000</a></div>
+    </div> {% endcomment %}
+    <div id="project">
+      <div>DOCTOR : {{doctorname}}</div>
+      <div>EMAIL : <a href="mailto:{{demail}}">{{demail}}</a></div>
+      <div>CONTACT : {{dcontact}}</div>
+      <div>ADDRESS : {{daddress}}, {{dcity}}, {{dstate}}</div>
+      <div>APPOINTED DATE : {{date}}</div>
+      <div>APPOINTED TIME : {{time}}</div>
+    </div><br>
+    <div id="project">
+      <div>PATIENT : {{name}}</div>
+      <div>AGE : {{age}}</div>
+      <div>GENDER : {{gender}}</div>
+      <div>EMAIL : <a href="mailto:{{email}}">{{email}}</a></div>
+      <div>CONTACT : {{contact}}</div>
+      <div>ADDRESS : {{address}}, {{city}}, {{state}}</div>
+    </div>
+    <br>
+    <br>
+  </header>
+    <div class="table-container" style="overflow-x:auto">
+      <table class="table" style="width:100%">
+          <thead>
+              <tr>
+                  <th scope="col">TREATMENT</th>
+                  <th scope="col">CHARGES</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td scope="row">Checkup</td>
+                  <td>{{dfee}}</td>
+                  
+              </tr>
+              <tr>
+                  <td scope="row">&nbsp;</td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td scope="row">&nbsp;</td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td scope="row">&nbsp;</td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td scope="row">&nbsp;</td>
+                  <td></td>
+              </tr>
+              
+              <tr>
+                  <td>TOTAL: </td>
+                  {% if payment == "0" %}
+                  <td>Initial {{dfee}} +  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = </td>
+                  {% elif payment == "1" %}
+                  
+                  <td>Paid {{dfee}} +  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = </td>
+                  {% else %}
+                  <td>Initial {{dfee}} +  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = </td>
+
+                  {% endif %}
+
+                  
+
+                  
+                  
+              </tr>
+          </tbody>
+      </table>
+
+    </div>
+
+    <p style="text-align:right; font-size:12px;">*All values are in INR<p>
+    <p style="text-align:right; font-size:12px;">(To be paid offline to consultant)<p>
+
+<br>
+    <p style="text-align:right; font-size:12px;">( Signature consultant)<p>
+
+    <header class="clearfix">
+    <div id="logo" style="display:flex; justify-content:center; align-items:center;">
+      {#<img src="static/firstapp/images/logo.png" class="brand-logo" width=60 height=60>#} <!--not working-->
+      {% comment %} <img src="{% static '/images/logofindmedic.png' %}" class="brand-logo" height="200px"><!--not working--> {% endcomment %}
+      <h1 class="brand-name">Find Medic Appointment Booking Recipt</h1>
+      <img class="float: center;" src="F:\Minor 2\Find_Medic\static\images\logofindmedic.png" class="brand-logo" width="200" height="120">
+    <h2>INVOICE</h2>
+    </div>
+    <div id="company" class="clearfix">
+      <div>INVOICE ID : {{pid}}/{{id}}</div> 
+    </div>
+    {% comment %} <div id="company" class="clearfix">
+      <div>Find Medic</div>
+      <div><a href="mailto:findmedic@example.com">findmedic@example.com</a></div>
+      <div><a href="www.findmedic.in:8000">www.findmedic.in:8000</a></div>
+    </div> {% endcomment %}
+    <div id="project">
+      <div>DOCTOR : {{doctorname}}</div>
+      <div>EMAIL : <a href="mailto:{{demail}}">{{demail}}</a></div>
+      <div>CONTACT : {{dcontact}}</div>
+      <div>ADDRESS : {{daddress}}, {{dcity}}, {{dstate}}</div>
+      <div>APPOINTED DATE : {{date}}</div>
+      <div>APPOINTED TIME : {{time}}</div>
+    </div><br>
+    <div id="project">
+      <div>PATIENT : {{name}}</div>
+      <div>AGE : {{age}}</div>
+      <div>GENDER : {{gender}}</div>
+      <div>EMAIL : <a href="mailto:{{email}}">{{email}}</a></div>
+      <div>CONTACT : {{contact}}</div>
+      <div>ADDRESS : {{address}}, {{city}}, {{state}}</div>
+    </div>
+    <br>
+    <br>
+  </header>
+    <div class="table-container" style="overflow-x:auto">
+      <table class="table" style="width:100%">
+          <thead>
+              <tr>
+                  <th scope="col">PRESCRIPTION</th>
+                  <th scope="col">QUANTITIY</th>
+                  <th scope="col">DAYS</th>
+              </tr>
+          </thead>
+          <tbody>
+              
+              <tr>
+                  <td scope="row"></td>
+                  <td><br><br><br><br><br><br><br><br><br><br><br></td>
+              </tr>
+              {% comment %} <tr>
+                  <td scope="row">&nbsp;</td>
+                  <td></td>
+              </tr> {% endcomment %}
+             
+          </tbody>
+      </table>
+
+    </div><br>
+    <p style="text-align:right; font-size:12px;">( Signature consultant/doctor )<p>
+    <p style="text-align:left; font-size:12px;">*NOTE : All medicines reacts differently with each person doctor/consultant will not responsible for side effects. <p>
+</body>
+
+</html>

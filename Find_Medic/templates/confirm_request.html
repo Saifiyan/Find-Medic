@@ -1,0 +1,154 @@
+{% extends 'patientdetails_generic.html' %}
+{% load crispy_forms_tags %}
+{% block title %}- Confim Patient Request{% endblock %}
+{% block content %}
+{% if user.usertype.usertype == "doctor" %}
+
+<!-- Modal -->
+<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+         <h3 class="modal-title" id="exampleModalLabel"> Change/Accept Appointment 
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button></h3>
+      </div>
+      <div class="modal-body" style="margin-left: 20px;">
+<br>
+ <form method="post">  
+    {% csrf_token %} 
+    {% comment %} {{ object.name }} {% endcomment %}
+    {{ form|crispy }}  
+    {% comment %} 9893010666 {% endcomment %}
+ <br>
+ <p>Note: In case you reschedule or postpone date of Appointment give a message to Patient</p><br>
+      </div>
+      <div class="modal-footer">
+        <button type="Button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" value="submit" class="btn btn-primary">Save changes</button>
+      </div>
+ </form>  
+    </div>
+  </div>
+</div>
+
+
+
+<div class="profile-info col-md-9">
+<div class="panel">
+<div class="panel-body bio-graph-info">
+
+<h6>/<a href="/Find_Medic/viewuserrequests/"> back </a>/ {{object.name}}</h6><hr>
+ <h2>Patient Details :- <br>
+              <h1></h1><br>
+              <div class="row">
+                  {% if user.usertype.usertype == "user" %}
+                  <div class="bio-row">
+                      <p><span>Doctor Name </span>: {{object.doctorname}}</p>
+                  </div>
+                  {% endif %}
+                  <div class="bio-row">
+                      <p><span>Invoice Id </span>: {{object.pid}}/{{object.id}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Full Name </span>: {{object.name}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Age </span>: {{object.age}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Gender </span>: {{object.gender}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Blood Group </span>: {{object.bgroup}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Contact </span>: {{object.contact}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Email </span>: {{object.email}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Address </span>: {{object.address}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>City </span>: {{object.city}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>State </span>: {{object.state}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>{% if object.request %}Appointed Date{% else %}Requested Date{% endif %} </span>: {{object.date}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>{% if object.request %}Appointed Time{% else %}Requested Time{% endif %} </span>: {{object.time}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Request </span>: {% if object.request %}Accepted{% else %}Not Accepted{% endif %}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Requested On </span>: {{object.nowdatetime}}</p>
+                  </div>
+                </div>
+                  <div class="">
+                       {% if user.usertype.usertype == "user" %}
+                      <p><span>Doctor's Message </span>: {{object.give_a_message}}</p>
+                       {% elif user.usertype.usertype == "doctor" %}
+                       <hr>
+                       <h5><span>Purpose of meeting </span>: {{object.purpose_of_meeting}}</h5>
+                      <h5><span>Message given</span>: {{object.give_a_message}}</h5>
+                      {% endif %}<hr><br>
+                  </div>
+            <div style="padding-left: 30px;">
+ <form method="post">  
+    {% csrf_token %} 
+    {{ form|crispy }}  
+    <input type="submit" value="Confirm" /> 
+ </form>  
+ <br>
+ <p>Note: In case you reschedule or postpone date of Appointment give a message to Patient</p><br>
+            </div>
+
+</div>
+</div>
+</div>
+
+
+{% comment %} 
+<div class="profile-info col-md-4">
+      <div class="panel">
+ <div class="panel-body bio-graph-info">
+ <h3> Change/Accept Appointment </h3><br>
+ <form method="post">  
+    {% csrf_token %} 
+    {{ object.name }} 
+    {{ form.as_p }}  
+    <input type="submit" value="Submit" /> 
+ </form>  
+ <br>
+ <p>Note: In case you reschedule or postpone date of Appointment give a message to Patient</p><br>
+ </div>
+ </div>
+ </div>
+ {% endcomment %}
+{% elif user.usertype.usertype == "user" %}
+<div class="profile-info col-md-4">
+      <div class="panel">
+ <div class="panel-body bio-graph-info">
+ <h3> Change Detiails Appointment </h3>
+ <form method="post">  
+    {% csrf_token %}  
+    {{ formN|crispy }}  <br>
+    <input type="submit" value="Submit" /> 
+    {% comment %} 9893010666 {% endcomment %}
+ </form>  
+ </div>
+ </div>
+ </div>
+ {% else %}
+<div class="profile-info col-md-9">
+<h2 style="color: white;">You need to log in first <a style="color: black;" href="/Find_Medic/login">click here to redirect</a></h2>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+    <style>
+    #user_heading{
+        color: white;
+        font-size: 4em;
+    }
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1 class="logo">Logo</h1>
+        {% if user.is_authenticated %}
+            <h3><a href="/Find_Medic/View_my_profile">update profile</a></h3><br>
+            <h3><a href="/Find_Medic/Logout">logout</a></h3>
+        {% else %}
+        <h3 class="signUp-login"><a href="/Find_Medic/login"> Login/Sign Up</a></h3>
+        {% endif %}
+    </header>
+    <main> 
+         <!-- Content changes here -->
+
+    {% if user.is_authenticated %}
+    <h1 id="user_heading">Hello, {{user.first_name}} {{user.email}} {{user.username}} </h1>    
+    {% else %}
+        
+    <pre class="main-text">
+        <a href="/Find_Medic/login">
+        Login
+    </a>
+        to join us.
+        or
+        <a href="/Find_Medic/signup">
+        Sign Up
+    </a>
+    </pre>
+        {% endif %}
+
+    {% comment %} <pre class="main-text">
+        <a href="/Find_Medic/login">
+        Login
+    </a>
+        to join us.
+        or
+        <a href="/Find_Medic/signup">
+        Sign Up
+    </a>
+    </pre> {% endcomment %}
+
+    <!-- Content changes end here -->
+</main>
+{% for message in messages %}
+<script>
+                                        window.onload = function(){
+                                            alert('{{message}}')
+                                        }
+                                    </script>
+{% endfor %}
+</body>
+</html>

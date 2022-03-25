@@ -1,0 +1,82 @@
+{% extends 'profile.html' %}
+
+{% block title %} View Doctor Profile {% endblock %}
+
+{% block content %}
+<div class="profile-info col-md-9">
+      <div class="panel">
+ <div class="panel-body bio-graph-info">
+ {% for message in messages %}
+
+{% if message.tags == 'error' %}
+    <p style="color: red;">{{message}}</p>
+{% elif message.tags == 'info' %}
+    {% comment %} <script>
+        window.onload = function(){
+            alert('{{message}}')
+        }
+    </script> {% endcomment %}
+    <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong>Success!</strong> {{message}}.
+    </div>
+{% endif %}
+{% endfor %}
+              <h2>Welcome Dr. {{user.first_name}}</h2>{{timeT}}<hr>
+              <h1>[ Bio Graph ]</h1><hr>
+              <div class="row">
+                  <div class="bio-row">
+                      <p><span>Full Name </span>: {{user.first_name}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>User Name </span>: {{user.username}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Clinic/Hospital </span>: {{user.doctorprofile.Clinic_or_Hospital_name}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Email </span>: {{user.email}}</p>
+                  </div>
+                  <div class="bio-row">
+                   <p><span>Profile pic</span>:  <img src="{{user.doctorprofile.photo.url}}" width="22pc" ></img>  </p>
+                   
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Gender</span>: {{user.doctorprofile.gender}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Specialist</span>: {{user.doctorprofile.specialist}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Degree</span>: {{user.doctorprofile.degree}}</p>
+                  </div>
+                  <div class="bio-row">
+                  
+                      <p><span>license </span>: <a href="{{user.doctorprofile.licence.url}}">{% if user.doctor.licence != "" %}click{% endif %}</a></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Contact </span>: {{user.doctorprofile.contno}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Fee </span>: {{user.doctorprofile.fee}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Address </span>: {{user.doctorprofile.address}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>City </span>: {{user.doctorprofile.city}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>State </span>: {{user.doctorprofile.state}}</p>
+                  </div>
+                    <div class="bio-row">
+                      <p><span>Profile Status </span>: {% if user.doctorprofile.Upload_Profile %}Active {% else %}Deactive {% endif %}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+{% endblock  %}
+
+
+

@@ -1,0 +1,143 @@
+{% extends 'base_generic.html' %}
+{% load bootstrap %}
+{% block title %}{% endblock %}
+{% block content %}
+
+{% comment %} {% for message in messages %}
+
+                    {% if message.tags == 'info' %}
+                        <script>
+                            window.onload = function(){
+                                alert('{{message}} {{user.username}}')
+                            }
+                        </script> 
+                        {% comment %} <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <strong>Success!</strong> {{message}}.
+                        </div>
+                    {% endif %}
+                    {% endfor %} {% endcomment %}
+
+
+{% if doctorprofile_list %}
+{% if user.is_authenticated %}
+
+
+ {% for message in messages %}
+{% if message.tags == 'info' %}
+    {% comment %} <script>
+        window.onload = function(){
+            alert('{{message}}')
+        }
+    </script> {% endcomment %}
+    <div class="alert" style="background-color: green;">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong>Alert!</strong> {{message}}.
+    </div>
+{% endif %}
+{% endfor %}
+
+
+{% load static %}
+<div class="bg-white card mb-4 order-list shadow-sm" style="background-image: url({% static 'images/search.png' %});">
+                            <div class="col-md-5 p-4">
+<form method=GET>
+{{ filter.form|bootstrap }}
+<br>
+<button type="submit" style="float: right;" class="btn btn-primary">Search</button>
+</form>
+</div>
+
+
+</div>
+<div class="loading-container">
+    <div class="loading-progress">
+        <div class="rotator">
+            <div class="rotator">
+                <div class="rotator colored">
+                    <div class="rotator">
+                        <div class="rotator colored">
+                            <div class="rotator colored"></div>
+                            <div class="rotator"></div>
+                        </div>
+                        <div class="rotator colored"></div>
+                    </div>
+                    <div class="rotator"></div>
+                </div>
+                <div class="rotator"></div>
+            </div>
+            <div class="rotator"></div>
+        </div>
+        <div class="rotator"></div>
+    </div>
+</div>
+
+{% for doc in object_list %}
+
+
+
+
+                        {% if doc.user.doctorprofile.Upload_Profile %}
+
+                        <div class="bg-white card mb-4 order-list shadow-sm">
+                            <div class="gold-members p-4">
+                                <a href="#">
+                                </a>
+                                <div class="media">
+                                    <a>
+                                        <img class="mr-4" src="{{doc.user.doctorprofile.photo.url}}" alt="Generic placeholder image">
+                                    </a>
+                                    <div class="media-body">
+                                        <a href="#">
+                                            <span class="float-right text-info">Specialist : {{doc.user.doctorprofile.specialist}} <i class="icofont-check-circled text-success"></i></span>
+                                        </a>
+                                        <h4 class="mb-2">
+                                            <a href="#"></a>
+                                            <a href="{{doc.get_absolute_url}}" class="text-black">Dr. {{doc.user.first_name}}</a>
+                                            
+                                        </h4><hr>
+                                        <p class="text-dark">Clinic/Hospital Name : {{doc.user.doctorprofile.Clinic_or_Hospital_name}}</p>
+                                        <p class="text-dark">City : {{doc.user.doctorprofile.city}}</p>
+                                        <p class="text-dark">State : {{doc.user.doctorprofile.state}}</p>
+                                        <hr>
+                                        <div class="float-right">
+                                            {% comment %} <a class="btn btn-sm btn-outline-primary" href="  "><i class="icofont-headphone-alt"></i> FEEDBACK</a> {% endcomment %}
+                                            <a class="btn btn-sm btn-primary" style="padding-left: 10px; padding-right: 10px;" href="{{doc.get_absolute_url}}"><i class="icofont-refresh"></i>  FIX APPOINTMENT   </a>
+                                        </div>
+                                        <p class="mb-0 text-black text-primary pt-2"><span class="text-black font-weight-bold">Checkup Fee :</span> ₹{{doc.user.doctorprofile.fee}}
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% else %}
+                        
+                        {% endif %}
+{% endfor %}
+
+   <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% else %}
+<h2>You need to log In first !</h2>
+<a href="/Find_Medic/login">Click here to login</a>
+{% endif %}
+{% endif %}
+
+{% endblock content %}

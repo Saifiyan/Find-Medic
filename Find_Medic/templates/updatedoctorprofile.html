@@ -1,0 +1,84 @@
+{% extends 'profile.html' %}
+
+{% block title %}Complete Doctor Profile{% endblock %}
+
+{% block content %}
+<div class="profile-info col-md-9">
+      <div class="panel">
+ <form action="/Find_Medic/UploadDoctordetails" method="POST" enctype="multipart/form-data">
+ {% csrf_token %}
+  {% comment %} {{ profileform.as_p }} {% endcomment %}
+    <div class="panel-body bio-graph-info">
+    <h2>Welcome Doctor    !</h2><hr>
+              <h4>Please Update your Bio Graph</h4><hr><br>
+              <div class="row">
+                  <div class="bio-row">
+                      <p><span>Full Name </span>: {{user.first_name}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>User Name </span>: {{user.username}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Email </span>: {{user.email}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Gender </span><input name="gender" value="male" type="radio" required> Male <input name="gender" value="female" type="radio" required> Female 
+                      <input name="gender" value="other" type="radio" required> Other </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Specialist</span><input name="specialist" type="text" required></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Studied </span><input name="degree" type="text" required></p>
+                  </div>
+                  
+                  <div class="bio-row">
+                      <p><span>Contact </span><input name="contno" type="number" required></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Fee </span><input name="fee" type="number" required></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Address </span><input name="address" type="text" required></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>City </span><input name="city" type="text" required></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>State </span><input name="state" type="text" required></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Clinic/Hospital Name </span><input name="chname" type="text" required></p>
+                  </div>
+                  <div class="bio-row">
+                      <label>Upload image </label><input name="photo" type="file" required><br>
+                  </div>
+                  <div class="bio-row">
+                      <label>Upload license </label><input name="licence" type="file" required>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Upload Profile </span><input type="checkbox" name="Upload_Profile" value="True"></p>
+                  </div>
+                  
+                  <div>
+                        <input type="submit" style="background-color: #4CAF50;
+                        border: none;
+                        color: white;
+                        padding: 10px 16px;
+                        text-align: left;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        margin: 40px 2px;
+                        margin-left: 38pc;
+                        cursor: pointer;" value="Save changes" {% if user.doctorprofile.gender != "" %}disabled{% endif %}>
+                  </div>
+              </div>
+          </div>
+      </div>
+ </form>
+
+{% endblock  %}
+
+
+

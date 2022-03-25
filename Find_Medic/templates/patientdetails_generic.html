@@ -1,0 +1,838 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <title>profile | {% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    
+    {% comment %} <link rel="stylesheet" href="{% static 'profile.css' %}"> {% endcomment %}
+
+    <script>
+        function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('txt').innerHTML =
+        h + ":" + m + ":" + s;
+        var t = setTimeout(startTime, 1000);
+        }
+        function checkTime(i) {
+        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+        return i;
+        }
+        </script>
+
+    <style type="text/css">
+    	body {
+    color: #797979;
+    background: #f1f2f7;
+    font-family: 'Open Sans', sans-serif;
+    padding: 0px !important;
+    margin: 0px !important;
+    font-size: 13px;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+}
+
+.profile-nav, .profile-info{
+    margin-top:30px;   
+}
+{% comment %} .col-md-3 {
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 26%;
+} {% endcomment %}
+.profile-nav .user-heading {
+    background: #768fd8;
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    padding: 30px;
+    text-align: center;
+}
+
+.profile-nav .user-heading.round a  {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: 10px solid rgba(255,255,255,0.3);
+    display: inline-block;
+}
+
+.profile-nav .user-heading a img {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.profile-nav .user-heading h1 {
+    font-size: 22px;
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.profile-nav .user-heading p {
+    font-size: 12px;
+}
+
+.profile-nav ul {
+    margin-top: 1px;
+}
+
+.profile-nav ul > li {
+    border-bottom: 1px solid #ebeae6;
+    margin-top: 0;
+    line-height: 30px;
+    width: 16pc;
+}
+
+.profile-nav ul > li:last-child {
+    border-bottom: none;
+}
+
+.profile-nav ul > li > a {
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    color: #89817f;
+    border-left: 5px solid #fff;
+}
+
+.profile-nav ul > li > a:hover, .profile-nav ul > li > a:focus, .profile-nav ul li.active  a {
+    background: #f8f7f5 !important;
+    border-left: 5px solid #fbc02d;
+    color: #050505  !important;
+}
+
+.profile-nav ul > li:last-child > a:last-child {
+    border-radius: 0 0 4px 4px;
+    -webkit-border-radius: 0 0 4px 4px;
+}
+
+.profile-nav ul > li > a > i{
+    font-size: 16px;
+    padding-right: 10px;
+    color: #bcb3aa;
+}
+
+.r-activity {
+    margin: 6px 0 0;
+    font-size: 12px;
+}
+
+
+.p-text-area, .p-text-area:focus {
+    border: none;
+    font-weight: 300;
+    box-shadow: none;
+    color: #c3c3c3;
+    font-size: 16px;
+}
+
+.profile-info .panel-footer {
+    background-color:#f8f7f5 ;
+    border-top: 1px solid #e7ebee;
+}
+
+.profile-info .panel-footer ul li a {
+    color: #7a7a7a;
+}
+
+.bio-graph-heading {
+    background: #fbc02d;
+    color: #fff;
+    text-align: center;
+    font-style: italic;
+    padding: 40px 110px;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.bio-graph-info {
+    color: #57220e;
+}
+
+.bio-graph-info h1 {
+    font-size: 22px;
+    font-weight: 300;
+    margin: 0 0 20px;
+}
+
+.bio-row {
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+    padding:0 15px;
+}
+
+.bio-row p span {
+    width: 100px;
+    display: inline-block;
+}
+
+.bio-chart, .bio-desk {
+    float: left;
+}
+
+.bio-chart {
+    width: 40%;
+}
+
+.bio-desk {
+    width: 60%;
+}
+
+.bio-desk h4 {
+    font-size: 15px;
+    font-weight:400;
+}
+
+.bio-desk h4.terques {
+    color: #4CC5CD;
+}
+
+.bio-desk h4.red {
+    color: #e26b7f;
+}
+
+.bio-desk h4.green {
+    color: #97be4b;
+}
+
+.bio-desk h4.purple {
+    color: #caa3da;
+}
+
+.file-pos {
+    margin: 6px 0 10px 0;
+}
+
+.profile-activity h5 {
+    font-weight: 300;
+    margin-top: 0;
+    color: #c3c3c3;
+}
+
+.summary-head {
+    background: #ee7272;
+    color: #fff;
+    text-align: center;
+    border-bottom: 1px solid #ee7272;
+}
+
+.summary-head h4 {
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.summary-head p {
+    color: rgba(255,255,255,0.6);
+}
+
+ul.summary-list {
+    display: inline-block;
+    padding-left:0 ;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+ul.summary-list > li {
+    display: inline-block;
+    width: 19.5%;
+    text-align: center;
+}
+
+ul.summary-list > li > a > i {
+    display:block;
+    font-size: 18px;
+    padding-bottom: 5px;
+}
+
+ul.summary-list > li > a {
+    padding: 10px 0;
+    display: inline-block;
+    color: #818181;
+}
+
+ul.summary-list > li  {
+    border-right: 1px solid #eaeaea;
+}
+
+ul.summary-list > li:last-child  {
+    border-right: none;
+}
+
+.activity {
+    width: 100%;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.activity.alt {
+    width: 100%;
+    float: right;
+    margin-bottom: 10px;
+}
+
+.activity span {
+    float: left;
+}
+
+.activity.alt span {
+    float: right;
+}
+.activity span, .activity.alt span {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    background: #eee;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+}
+
+.activity.terques span {
+    background: #8dd7d6;
+}
+
+.activity.terques h4 {
+    color: #8dd7d6;
+}
+.activity.purple span {
+    background: #b984dc;
+}
+
+.activity.purple h4 {
+    color: #b984dc;
+}
+.activity.blue span {
+    background: #90b4e6;
+}
+
+.activity.blue h4 {
+    color: #90b4e6;
+}
+.activity.green span {
+    background: #aec785;
+}
+
+.activity.green h4 {
+    color: #aec785;
+}
+
+.activity h4 {
+    margin-top:0 ;
+    font-size: 16px;
+}
+
+.activity p {
+    margin-bottom: 0;
+    font-size: 13px;
+}
+
+.activity .activity-desk i, .activity.alt .activity-desk i {
+    float: left;
+    font-size: 18px;
+    margin-right: 10px;
+    color: #bebebe;
+}
+
+.activity .activity-desk {
+    margin-left: 70px;
+    position: relative;
+}
+
+.activity.alt .activity-desk {
+    margin-right: 70px;
+    position: relative;
+}
+
+.activity.alt .activity-desk .panel {
+    float: right;
+    position: relative;
+}
+
+.activity-desk .panel {
+    background: #F4F4F4 ;
+    display: inline-block;
+}
+
+
+.activity .activity-desk .arrow {
+    border-right: 8px solid #F4F4F4 !important;
+}
+.activity .activity-desk .arrow {
+    border-bottom: 8px solid transparent;
+    border-top: 8px solid transparent;
+    display: block;
+    height: 0;
+    left: -7px;
+    position: absolute;
+    top: 13px;
+    width: 0;
+}
+
+.activity-desk .arrow-alt {
+    border-left: 8px solid #F4F4F4 !important;
+}
+
+.activity-desk .arrow-alt {
+    border-bottom: 8px solid transparent;
+    border-top: 8px solid transparent;
+    display: block;
+    height: 0;
+    right: -7px;
+    position: absolute;
+    top: 13px;
+    width: 0;
+}
+
+.activity-desk .album {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.activity-desk .album a{
+    margin-right: 10px;
+}
+
+.activity-desk .album a:last-child{
+    margin-right: 0px;
+}
+
+li{
+    display: inline-block;
+  margin: 0 0;
+}
+
+{% comment %} Added Navbar {% endcomment %}
+.uln {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+}
+
+.lin {
+  float: left;
+}
+
+.lin a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.lin a:hover:not(.active) {
+  background-color: #17a2b8;
+}
+.activen {
+  background-color: ;
+}
+
+.containera {
+  height: 200px;
+  position: relative;
+  border: 3px solid green;
+}
+
+.vertical-centera {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+{% comment %} Alerts Css {% endcomment %}
+.alert {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  margin-bottom: 2px;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: black;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: blue;
+}
+
+body{
+    margin-top:20px;
+    background-color: #f0f2f5;
+}
+.dropdown-list-image {
+    position: relative;
+    height: 2.5rem;
+    width: 2.5rem;
+}
+.dropdown-list-image img {
+    height: 2.5rem;
+    width: 2.5rem;
+}
+.btn-light {
+    color: #2cdd9b;
+    background-color: #e5f7f0;
+    border-color: #d8f7eb;
+}
+
+/* ------------------------ LOADING ----------------*/
+@-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+    0% {
+      -moz-transform: rotate(0deg);
+  }
+  100% {
+      -moz-transform: rotate(360deg);
+  }
+}
+@-o-keyframes spin {
+    0% {
+      -o-transform: rotate(0deg);
+  }
+  100% {
+      -o-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+  }
+}
+.loading-container {
+    z-index: 2000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .55);
+}
+.loading-container.loading-inactive {
+    display: none;
+}
+.loading-container.loading-inactive .loading-progress {
+    display: none;
+}
+.loading-container .loading-progress {
+    z-index: 2000;
+    position: fixed;
+    height: 10px;
+    width: 10px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.loading-container .loading-progress .rotator {
+    -webkit-animation: spin 5s infinite linear;
+    -moz-animation: spin 5s infinite linear;
+    -o-animation: spin 5s infinite linear;
+    animation: spin 5s infinite linear;
+}
+.loading-container .loading-progress>.rotator {
+    left: -100px;
+}
+.loading-container .rotator {
+    -webkit-background-origin: border-box;
+    -moz-background-origin: border-box;
+    background-origin: border-box;
+    background-color: #fff;
+    width: 200px;
+    height: 7px;
+    opacity: .75;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.loading-container .colored {
+    background-color: #2dc3e8!important;
+}
+
+    </style>
+</head>
+<body style="background-color: darkcyan;" onload="startTime()">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+
+<ul class="uln" style="font-size: 15px; height: 54px;">
+  <li class="lin"><img src="{% static 'images/logonav.png'  %}" width="" height="50px"></li>
+  <li class="lin"><a href="/Find_Medic/">Home</a></li>
+  <li class="lin"><a href="/Find_Medic/news">News</a></li>
+  {% comment %} <li class="lin"><a href="">Feedback</a></li> {% endcomment %}
+{% if user.is_authenticated %}
+<li class="lin"><a href="{% url 'BrowseDoctors' %}">Search Doctors</a></li>
+  {% if user.usertype.usertype == "doctor" %}
+  <li class="lin" style="float:left"><a class="activen" href="/Find_Medic/viewdoctorprofile">Profile</a></li>
+
+  {% if user.docprofile.photo.url != "" %}
+  <li class="lin" style="float:right"><a class="activen" href="/Find_Medic/Logout">({{user.username}}) Logout 
+  {% else %}
+  <li class="lin" style="float:right"><a class="activen" href="/Find_Medic/Logout">({{user.username}}) Logout
+   <img width="23px" height="23px" src="{% static 'images/profile-icon.svg' %}"></a></li>
+   {% endif %}
+  <img style="border-radius: 13px" width="23px" height="23px" src="{{user.doctorprofile.photo.url}}"></a></li>
+  {% elif user.usertype.usertype == "user" %}
+  <li class="lin" style="float:left"><a class="activen" href="/Find_Medic/View_my_profile">Profile</a></li>
+  <li class="lin" style="float:right"><a class="activen" href="/Find_Medic/Logout">({{user.username}}) Logout <img width="23px" height="23px" src="{% static 'images/profile-icon.svg' %}"></a></li>
+  {% endif %}
+
+  
+  
+{% else %}
+  <li class="lin" style="float:right"><a class="activen" href="/Find_Medic/login"> Login/Sign Up</a></li>
+
+{% endif %}
+
+
+</ul>
+
+
+
+<div class="container bootstrap snippets bootdey">
+{% comment %} <header>
+        <a href="index.html" class="logo">Logo</a>
+        <h3><a class="logout" href="/Find_Medic/Logout">Logout</a></h3>
+    </header> {% endcomment %}
+<div class="row">
+  <div class="profile-nav col-md-3">
+      <div class="panel">
+          <div class="user-heading round">
+              <a href="#">
+
+        {% if user.usertype.usertype == "doctor" and user.doctorprofile.photo != ""%}
+
+                  <img src="{{user.doctorprofile.photo.url}}" alt="">
+        {% else %}
+                  <img src="{% static 'images/profile-icon.svg' %}" alt="">
+        {% endif %}
+              </a>
+              <h1>{{user.first_name}}</h1>
+              <p>{{user.email}}</p>
+          </div>
+
+          <ul class="nav nav-pills nav-stacked">
+          {% if user.usertype.usertype == "user" %}
+            <li {% if request.path == '/Find_Medic/View_my_profile' %}class="active"{% endif %}><a style="margin-left: 0px; width: 16pc;" href="/Find_Medic/View_my_profile"> <i class="fa fa-user"></i> Profile</a></li>
+              <li {% if request.path == '/Find_Medic/view_my_request' %}class="active"{% endif %}><a href="{% url 'ViewMyRequest' %}"> <i class="fa fa-calendar"></i> View Requests</a></li>{% comment %} {% if object.request %}Appointed Date{% else %}Requested Date{% endif %} {% endcomment %}
+ 
+
+            {% if user.userprofile.gender == "" %}
+              <li {% if request.path == '/Find_Medic/updateuserprofile' %}class="active"{% endif %}><a href="/Find_Medic/updateuserprofile" {% if user.userprofile.gender != "" %}class="disabled"{% endif %}> <i class="fa fa-edit"></i> Complete profile</a></li>
+            {% endif %}
+            {% if user.userprofile.gender != "" %}
+              <li {% if request.path == '/Find_Medic/changeuserprofile' %}class="active"{% endif %}><a href="/Find_Medic/changeuserprofile" {% if user.userprofile.gender == "" %}class="disabled"{% endif %}> <i class="fa fa-edit"></i> Edit profile</a></li>
+            {% endif %}
+
+          {% elif user.usertype.usertype == "doctor" %}
+               <li {% if request.path == '/Find_Medic/viewdoctorprofile'  %}class="active"{% endif %}><a style="margin-left: 0px; width: 16pc;" href="/Find_Medic/viewdoctorprofile"> <i class="fa fa-user"></i> Profile</a></li>
+              <li {% if request.path == '/Find_Medic/viewuserrequests/' %}class="active"{% endif %}><a href="/Find_Medic/viewuserrequests"> <i class="fa fa-calendar"></i> View Appointments </a></li>
+            
+            {% if user.doctorprofile.gender == "" %}
+              <li {% if request.path == '/Find_Medic/updatedoctorprofile' %}class="active"{% endif %}><a href="/Find_Medic/updatedoctorprofile" {% if user.doctorprofile.gender != "" %}class="disabled"{% endif %}> <i class="fa fa-edit"></i> Complete profile</a></li>
+            {% endif %}
+            {% if user.doctorprofile.gender != "" %}
+              <li {% if request.path == '/Find_Medic/changedoctorprofile' %}class="active"{% endif %}><a href="/Find_Medic/changedoctorprofile" {% if user.doctorprofile.gender == "" %}class="disabled"{% endif %}> <i class="fa fa-edit"></i> Edit profile</a></li>
+            {% endif %}
+          {% endif %}
+          </ul>
+      </div>
+      <img  src="{% static 'images/logofindmedic.png' %} " style="width: 262px" >
+  </div>
+  
+      {% comment %} <div class="panel">
+          <form>
+              <textarea placeholder="Whats in your mind today?" rows="2" class="form-control input-lg p-text-area"></textarea>
+          </form>
+          <footer class="panel-footer">
+              <button class="btn btn-warning pull-right">Post</button>
+              <ul class="nav nav-pills">
+                  <li>
+                      <a href="#"><i class="fa fa-map-marker"></i></a>
+                  </li>
+                  <li>
+                      <a href="#"><i class="fa fa-camera"></i></a>
+                  </li>
+                  <li>
+                      <a href="#"><i class=" fa fa-film"></i></a>
+                  </li>
+                  <li>
+                      <a href="#"><i class="fa fa-microphone"></i></a>
+                  </li>
+              </ul>
+          </footer>
+      </div> {% endcomment %}
+          {% comment %} <div class="bio-graph-heading">
+              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
+          </div> {% endcomment %}
+          {% comment %} <div class="panel-body bio-graph-info">
+              <h1>Bio Graph</h1>
+              <div class="row">
+                  <div class="bio-row">
+                      <p><span>Full Name </span>: {{user.first_name}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>User Name </span>: {{user.username}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Email </span>: {{user.email}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Date of Birth</span>: </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Blood group </span>: </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Gender </span>: </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Contact </span>: </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Address </span>: </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>City </span>: </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>State </span>: </p>
+                  </div>
+              </div>
+          </div>
+      </div> {% endcomment %}
+
+{% block content %}
+
+
+{% endblock %}
+
+      <div>
+          {% comment %} <div class="row">
+              <div class="col-md-6">
+                  <div class="panel">
+                      <div class="panel-body">
+                          <div class="bio-chart">
+                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="35" data-fgcolor="#e06b7d" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(224, 107, 125); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                          </div>
+                          <div class="bio-desk">
+                              <h4 class="red">Envato Website</h4>
+                              <p>Started : 15 July</p>
+                              <p>Deadline : 15 August</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="panel">
+                      <div class="panel-body">
+                          <div class="bio-chart">
+                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="63" data-fgcolor="#4CC5CD" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(76, 197, 205); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                          </div>
+                          <div class="bio-desk">
+                              <h4 class="terques">ThemeForest CMS </h4>
+                              <p>Started : 15 July</p>
+                              <p>Deadline : 15 August</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="panel">
+                      <div class="panel-body">
+                          <div class="bio-chart">
+                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="75" data-fgcolor="#96be4b" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(150, 190, 75); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                          </div>
+                          <div class="bio-desk">
+                              <h4 class="green">VectorLab Portfolio</h4>
+                              <p>Started : 15 July</p>
+                              <p>Deadline : 15 August</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="panel">
+                      <div class="panel-body">
+                          <div class="bio-chart">
+                              <div style="display:inline;width:100px;height:100px;"><canvas width="100" height="100px"></canvas><input class="knob" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="50" data-fgcolor="#cba4db" data-bgcolor="#e8e8e8" style="width: 54px; height: 33px; position: absolute; vertical-align: middle; margin-top: 33px; margin-left: -77px; border: 0px; font-weight: bold; font-style: normal; font-variant: normal; font-stretch: normal; font-size: 20px; line-height: normal; font-family: Arial; text-align: center; color: rgb(203, 164, 219); padding: 0px; -webkit-appearance: none; background: none;"></div>
+                          </div>
+                          <div class="bio-desk">
+                              <h4 class="purple">Adobe Muse Template</h4>
+                              <p>Started : 15 July</p>
+                              <p>Deadline : 15 August</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div> {% endcomment %}
+</div>
+</div>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(window)
+  .load(function () {
+      setTimeout(function () {
+          $('.loading-container')
+              .addClass('loading-inactive');
+              /*in production, remove this line*/
+              $("#loading-text").addClass('text-success').html('page loaded');
+      }, 500);//in production change 8000 to 0
+  });
+
+  $(function() {
+    $('#basicExampleModal').modal('show');
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,350 @@
+{% extends 'base_generic.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+<div class="loading-container">
+    <div class="loading-progress">
+        <div class="rotator">
+            <div class="rotator">
+                <div class="rotator colored">
+                    <div class="rotator">
+                        <div class="rotator colored">
+                            <div class="rotator colored"></div>
+                            <div class="rotator"></div>
+                        </div>
+                        <div class="rotator colored"></div>
+                    </div>
+                    <div class="rotator"></div>
+                </div>
+                <div class="rotator"></div>
+            </div>
+            <div class="rotator"></div>
+        </div>
+        <div class="rotator"></div>
+    </div>
+</div>
+
+ {% for message in messages %}
+
+{% if message.tags == 'info' %}
+    {% comment %} <script>
+        window.onload = function(){
+            alert('{{message}}')
+        }
+    </script> {% endcomment %}
+    <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong>Alert!</strong> {{message}}.
+    </div>
+{% endif %}
+{% endfor %}
+{% if user.is_authenticated %}
+
+                        <div class="bg-white card mb-4 order-list shadow-sm">
+                            <div class="gold-members p-4">
+                                <a href="#">
+                                </a>
+                                <div class="media">
+                                    <a href="#">
+                                        <img class="mr-4" src="{{object.photo.url}}" alt="Generic placeholder image">
+                                    </a>
+                                    <div class="media-body">
+                                       
+                                        <h4 class="mb-2" style="text-align: center;">
+                                            <a href="#"></a>
+                                            Confirm all Details<hr>
+                                        </h4>
+                                            {% comment %} <p class="text-black">{{object.user.first_name}}</p> {% endcomment %}<h5 class="mb-2" style="">
+                                            <a href="#"></a>
+                                            Doctor's Details :-
+                                        </h5>
+                                        <hr>
+                                        <div class="bio-row">
+                                            <p><span>Name </span>: {{object.user.first_name}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>C/H Name</span>: {{object.Clinic_or_Hospital_name}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Specialist </span>: {{object.specialist}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Studied </span>: {{object.degree}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Email </span>: {{object.user.email}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Address </span>: {{object.address}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>City </span>: {{object.city}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>State </span>: {{object.state}}</p>
+                                        </div>
+                                        <div class="bio-row">
+                                            <p><span>Checkup Fee </span>: ₹{{object.fee}}</p>
+                                        </div>
+
+                                        
+                                        
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="gold-members p-4">
+                                <a href="#">
+                                </a>
+                                <div class="media">
+                                    <a href="#">{% load static %}
+                                        <img class="mr-4" src="{% static 'images/profile-icon.svg' %}" alt="">
+                                    </a>
+                                    <div class="media-body">
+                                       <hr>
+                                            {% comment %} <p class="text-black">{{object.user.first_name}}</p> {% endcomment %}<h5 class="mb-2" style="">
+                                            <a href="#"></a>
+                                            Your Details :-
+                                        </h5>
+                                        
+                                        
+                                        {% if user.usertype.usertype == "user" %}
+                                        {% if user.userprofile.gender != "" %}
+                                            <hr>
+                                            <form  action="{% url 'RequestAppointment' object.id %}" method="POST">
+                                            {% csrf_token %}
+                                                
+                                                <div class="bio-row">
+                                                    <p><span>Name </span>: {{user.first_name}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>Age </span>: {{user.userprofile.age}}</p>
+                                                </div>
+                                                
+                                                <div class="bio-row">
+                                                    <p><span>Gender </span>: {{user.userprofile.gender}}</p>
+                                                </div>
+                                                
+                                                <div class="bio-row">
+                                                    <p><span>Blood Group</span>: {{user.userprofile.bgroup}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>Contact </span>: {{user.userprofile.contno}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>Email </span>: {{user.email}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>Address </span>: {{user.userprofile.address}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>City </span>: {{user.userprofile.city}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>State </span>: {{user.userprofile.state}}</p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>change </span>:<a href="{% url 'ChangePatientDetails' object.id%}">  click</a></p>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p><span>Select Date</span></p><input type="date" name="pdate" required>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p>Select Time</p><input type="time" name="ptime" required>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <p>Purpose of Meeting</p><input type="text" name="purpose_of_meeting" required>
+                                                </div>
+                                                <div class="bio-row">
+                                                    <br><p>Payment mode : </p>
+                                                    {% comment %} <input type="radio" onclick="checkButton()" id="online" value="online" name="payment" required>  online<br>
+                                                    <input type="radio" onclick="checkButton()" id="offline" value="offline" name="payment" required>  offline {% endcomment %}
+
+                                                    <label for="chkYes">
+                                                    <input type="radio" id="chkYes" name="chk" value="1" onclick="ShowHideDiv()" required>
+                                                    Online
+                                                    </label><br>
+                                                    <label for="chkNo">
+                                                    <input type="radio" id="chkNo" name="chk"  value="0" onclick="ShowHideDiv()" required>
+                                                    Offline
+                                                    </label>
+                                                    
+                                                </div>
+                                                
+                                                {% comment %} <p id="disp"></p> {% endcomment %}
+                                                                                                
+                                                {% comment %} <div class="bio-row" style="">
+                                                <div id="dvtext" style="display: none">
+                                                <br>
+                                                Paid Through :
+                                                <select name="cars" id="txtBox" required>
+                                                    <option value="-select-">-select-</option>
+                                                    <option value="">Paytm</option>
+                                                    <option value="saab">G-pay</option>
+                                                    <option value="opel">Phone-pay</option>
+                                                </select>
+                                                
+                                                <br><br>
+                                                Enter Transaction details : 
+                                                <input type="text" id="txtBox" placeholder="Transaction Id" name="transId" required>
+                                                <br><br>
+                                                Date Time of Transaction :<br>
+                                                <input type="datetime-local" id="txtBox" name="transDateTime" required>
+
+                                                </div>
+
+                                                </div> {% endcomment %}
+                                                <div class="bio-row" style="width: 600px;">
+                                                <div id="dvtext" style="display: none">
+                                                <br>
+                                                <h5>Enter your credit card details :</h5> 
+                                                <hr>
+                                                Card Number : 
+                                                    <input class="inputCard" type="number" min="1000" max="9999" maxlength="4" placeholder="  X X X X" name="creditCard1" id="creditCard1">
+                                                    -
+                                                    <input class="inputCard" type="number" min="1000" max="9999" placeholder="  X X X X" name="creditCard2" id="creditCard2">
+                                                    -
+                                                    <input class="inputCard" type="number" min="1000" max="9999" placeholder="  X X X X" name="creditCard3" id="creditCard3">
+                                                    -
+                                                    <input class="inputCard" type="number" min="1000" max="9999" placeholder="  X X X X" name="creditCard4" id="creditCard4">
+                                                    <br><br>
+                                                    Card Expiry : &nbsp;&nbsp;
+                                                    <select style="color: grey;" name='expireMM' id='expireMM'>
+    <option value=''>MONTH</option>
+    <option value='01'>January</option>
+    <option value='02'>February</option>
+    <option value='03'>March</option>
+    <option value='04'>April</option>
+    <option value='05'>May</option>
+    <option value='06'>June</option>
+    <option value='07'>July</option>
+    <option value='08'>August</option>
+    <option value='09'>September</option>
+    <option value='10'>October</option>
+    <option value='11'>November</option>
+    <option value='12'>December</option>
+</select> 
+<select style="color: grey;" name='expireYY' id='expireYY'>
+    <option value=''>YEAR</option>
+    <option value='20'>2020</option>
+    <option value='21'>2021</option>
+    <option value='22'>2022</option>
+    <option value='23'>2023</option>
+    <option value='24'>2024</option>
+</select> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cvv :
+                                                    <input class="inputCard" type="number" min="100" max="999" placeholder="   CVV" max="9999">
+<hr>
+                                            </div>
+
+
+                                                </div>
+                                                 
+                                                {% comment %} <div class="bio-row">
+                                                    <p><span>to change </span><br><br><a href="{% url 'EditUserdetails' object.pk %}">click</a></p>
+                                                </div> {% endcomment %}
+                                                
+                                        
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                                        <p class="mb-0 text-black text-primary pt-2"><span class="text-black font-weight-bold">Checkup Fee :</span> ₹{{object.user.doctorprofile.fee}}
+                                        </p>
+                                                    <input name="did" value="{{object.user.id}}" type="hidden" checked>
+                                                    <input name="pname" value="{{user.first_name}}" type="hidden" checked>
+                                                    <input name="page" value="{{user.userprofile.age}}" type="hidden" checked>
+                                                    <input name="pgender" value="{{user.userprofile.gender}}" type="hidden" checked>
+                                                    <input name="pbgroup" value="{{user.userprofile.bgroup}}" type="hidden" checked>
+                                                    <input name="pcontact" value="{{user.userprofile.contno}}" type="hidden" checked>
+                                                    <input name="pemail" value="{{user.email}}" type="hidden" checked>
+                                                    <input name="paddress" value="{{user.userprofile.address}}" type="hidden" checked>
+                                                    <input name="pcity" value="{{user.userprofile.city}}" type="hidden" checked>
+                                                    <input name="pstate" value="{{user.userprofile.state}}" type="hidden" checked>
+                                                    <input name="doctorname" value="{{object.user.first_name}}" type="hidden" checked>
+                                                    <input name="daddress" value="{{object.address}}" type="hidden" checked>
+                                                    <input name="dcontact" value="{{object.contno}}" type="hidden" checked>
+                                                    <input name="demail" value="{{object.user.email}}" type="hidden" checked>
+                                                    <input name="dcity" value="{{object.city}}" type="hidden" checked>
+                                                    <input name="dstate" value="{{object.state}}" type="hidden" checked>
+                                                    <input name="dfee" value="{{object.fee}}" type="hidden" checked>
+                                                    <input name="chname" value="{{object.Clinic_or_Hospital_name}}" type="hidden" checked>
+                                            {% else %}
+                                                <br>
+                                              <h6>You have to Complete your profile first ! <a href="/accounts/updateuserprofile">click</a></h6>
+                                            {% endif %}
+
+                                        <div class="float-right">
+                                            <a class="btn btn-sm btn-outline-primary" href="{% url 'BrowseDoctors' %}"><i class="icofont-cancel-alt"></i> BACK</a>
+                                            <button type="submit" class="btn btn-sm btn-primary" href=""><i class="icofont-refresh"></i>  CONFIRM  </button>
+                                            {% else %}
+                                            
+                                                {% comment %} window.onload = function(){
+                                                    alert('You can register as a User, Dr. {{user.first_name}} !')
+                                                } {% endcomment %}
+                                              <h6>You can enter your details here Dr. {{user.first_name}} ! <a href="{% url 'ChangePatientDetails' object.id%}">click</a></h6>
+                                                    
+                                            {% endif %}
+                                        </div>
+</form>
+{% comment %} Payment options *********************{% endcomment %}
+<script>
+{% comment %} function checkButton(){
+    if (document.getElementById('online').checked){
+        document.getElementById("disp").innerHTML 
+        = document.getElementById("online").value 
+        + " radio button is checked" + ; 
+    }
+    else if (document.getElementById('offline').checked){
+        document.getElementById("disp").innerHTML 
+        = document.getElementById("offline").value 
+        + " radio button is checked"; 
+    }
+}  {% endcomment %}
+function showtxt(){
+        document.getElementById("show").innerHTML 
+        = " radio button is checked" ; 
+}
+
+function ShowHideDiv() {
+        var chkYes = document.getElementById("chkYes");
+        var dvtext = document.getElementById("dvtext");
+        dvtext.style.display = chkYes.checked ? "block" : "none";
+    }
+    if (document.getElementById('offline').checked){
+        document.getElementById("txtBox").disabled = true;
+    }
+    
+</script>
+{% comment %} ************************************* {% endcomment %}
+<br>
+
+
+
+
+{% else %}
+<h2>You need to log In first !</h2>
+<a href="/accounts/login">Click here to login</a>
+{% endif %}
+{% comment %}  
+{% for message in messages %}
+
+                    {% if message.tags == 'info' %}
+                        <script>
+                            window.onload = function(){
+                                alert('{{message}} {{user.username}}')
+                            }
+                        </script>  
+                       <div class="alert">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <h4 style="color: red;"><strong>Alert!</strong>.{{message}}</h4>  
+                        </div>
+                    {% endif %}
+                    {% endfor %} {% endcomment %}
+
+{% endblock %}

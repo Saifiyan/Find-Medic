@@ -1,0 +1,190 @@
+{% extends 'blue_sign_up.html' %}
+{% block title %}| signup as{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-11 mt-60 mx-md-auto">
+            <div class="login-box bg-white pr-lg-5 pr-0">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-6 order-md-last">
+                        <div class="form-wrap bg-white">
+                            <h4 class="btm-sep pb-3 mb-5">Register</h4>
+                            {% comment %} <form class="form" method="post" action="#"> {% endcomment %}
+                            <form class="form" action="/Find_Medic/Signup" method="POST" >
+                  {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group position-relative">
+                                        <h6 class="btm-sep">Sign up as :</h6>
+                                            <input type="radio" name="usertype" value="user" required>    User
+                                            <input type="radio" name="usertype" value="doctor" required>    Doctor
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group position-relative">
+                                            <span class="zmdi zmdi-account"></span>
+                                            <input type="text" id="username" name="name" class="form-control" placeholder="Enter Fullname">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group position-relative">
+                                            <span class="zmdi zmdi-account"></span>
+                                            <input type="text" id="username" name="username" class="form-control" placeholder="Enter Username">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group position-relative">
+                                            <span class="zmdi zmdi-email"></span>
+                                            <input type="email" id="email" name="gmail" class="form-control" placeholder="Enter Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group position-relative">
+                                            <span class="zmdi zmdi-lock"></span>
+                                            <input type="password" id="password" name="password" class="form-control" placeholder="Set Password">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group position-relative">
+                                            <span class="zmdi zmdi-lock"></span>
+                                            <input type="password" id="password" name="confirmpassword" class="form-control" placeholder="Confirm Password">
+                                        </div>
+                                    </div>
+                                    {% for message in messages %}
+
+                                    {% if message.tags == 'error' %}
+                                        <p style="color: red;">{{message}}</p>
+                                    
+                                    {% endif %}
+                                    {% endfor %}
+                                    <div class="col-12">
+                                        <button type="submit" id="submit" class="btn btn-lg btn-custom btn-dark btn-block">
+                                            Sign Up
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-6 order-md-first">
+                        <div class="content text-center">
+                            <div class="border-bottom pb-5 mb-5">
+                                <h3 class="c-black">Already have an account?</h3>
+                                <a href="/Find_Medic/login" class="btn btn-custom">Log In</a>
+                            </div>
+                            
+                                <a href="/Find_Medic" class="btn btn-custom">home</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'signup.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <a href="/Find_Medic" class="logo">Find Medic</a>
+    </header>
+    
+
+    <main>
+        <!-- Content changes here -->
+        <div class="container">
+            <h2>Sign Up</h2>
+                <form action="/Find_Medic/Signup" method="POST" class="form-container">
+                  {% csrf_token %}
+                    
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="" placeholder="Name">
+                           
+                    <label for="username">username</label>
+                    <input type="text" name="username" id="" placeholder="username">
+                           
+                    <label for="gmail">Gmail</label>
+                    <input type="gmail" name="gmail" id="" placeholder="Gmail">
+    
+
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="" placeholder="password">
+
+                     {% for message in messages %}
+
+                    {% if message.tags == 'error' %}
+                        <p style="color: red;">{{message}}</p>
+                    {% elif message.tags == 'info' %}
+                        <script>
+                            window.onload = function(){
+                                alert('{{message}}')
+                            }
+                        </script>
+                    {% endif %}
+                    {% endfor %}
+                    
+                    <button type="submit">Sign Up</button>
+                </form>
+                <hr>
+            <p>Don't have an account? <a href="/Find_Medic/login">Login</a> </p>
+        </div>
+    </main>
+</body>
+</html>
+        <!-- Content changes end here -->{% endcomment %}

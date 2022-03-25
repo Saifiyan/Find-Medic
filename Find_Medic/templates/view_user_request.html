@@ -1,0 +1,47 @@
+{% extends 'profile.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}View User Request{% endblock %}
+
+{% block content %}
+
+<div class="profile-info col-md-5">
+       <img  src="{% static 'images/profile-graphic.svg' %}" style="width: 29pc;height: 28pc;" > 
+</div>
+
+<div class="profile-info col-md-3">
+      <div class="panel">
+ <form method="POST" enctype="multipart/form-data">
+ {% csrf_token %}
+  {% comment %} {{ profileform.as_p }} {% endcomment %}
+  
+    <div class="panel-body bio-graph-info" style="text-align: left;">
+    
+            <div class="row">
+            <fieldset class="form-group">
+            <div class="bio-row" >
+                {{r_form|crispy}}
+            
+            </fieldset>
+                <div style="text-align: center;" class="bio-row">
+                <input  type="submit" style="background-color: #4CAF50;border: none;
+                        color: white;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 16px;
+                        cursor: pointer;" value="Save changes">
+                </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+ </form>
+    
+
+
+
+{% endblock  %}
+
+
+

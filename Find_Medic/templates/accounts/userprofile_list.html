@@ -1,0 +1,51 @@
+{% extends 'patientdetails_generic.html' %}
+{% load static %}
+{% block title %}View User Request{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+
+     <div class="profile-info col-md-8">
+            <div class="panel">
+             {% comment %}   <div class="panel-body bio-graph-info">
+                        <div class="row"> {% endcomment %}
+                                
+            <div class="box shadow-sm rounded bg-white mb-3">
+                <div class="box-title border-bottom p-3">
+                    <h4 class="m-0">Recenta</h4>
+                </div>
+    {% if userprofile_list %}
+        {% for object in userprofile_list %}
+                {% if object.pid == user.id and object.request %}
+                    <div class="alert" style="background-color: lightblue; color: green;">
+                    <a href="{% url 'EditUserdetails' object.id %}"><span class="closebtn" onclick="">&#128465;</span> </a>
+                    <a href="{% url 'ConfirmUserRequest' object.id %}"><span class="closebtn" onclick="">&#x2714;</span> </a>
+                    <span><a href="{{object.get_absolute_url}}"><strong>{{object.name}}</strong></a></span>
+                     {{object.date}}
+                   </div> 
+                    
+                    
+                {% endif %}
+        {% endfor %}
+                    </div>
+                </div>
+            </div>            
+
+
+    {% else %}
+        <p>asdf</p>
+    {% endif %}
+                    {% comment %} </div>
+                </div>{% endcomment %}
+            </div>
+        </div> 
+
+
+{% endif %}
+
+{% endblock  %}
+
+
+

@@ -1,0 +1,419 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  This file has been downloaded from bootdey.com    @bootdey on twitter -->
+    <!--  All snippets are MIT license http://bootdey.com/license -->
+    <title>Home - Find Medic {% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+    	body{
+    margin-top:20px;
+    background:#eee;
+}
+/* My Account */
+.payments-item img.mr-3 {
+    width: 47px;
+}
+.order-list .btn {
+    border-radius: 2px;
+    min-width: 121px;
+    font-size: 13px;
+    padding: 7px 0 7px 0;
+}
+.osahan-account-page-left .nav-link {
+    padding: 18px 20px;
+    border: none;
+    font-weight: 600;
+    color: #535665;
+}
+.osahan-account-page-left .nav-link i {
+    width: 28px;
+    height: 28px;
+    background: #535665;
+    display: inline-block;
+    text-align: center;
+    line-height: 29px;
+    font-size: 15px;
+    border-radius: 50px;
+    margin: 0 7px 0 0px;
+    color: #fff;
+}
+.osahan-account-page-left .nav-link.active {
+    background: #f3f7f8;
+    color: #282c3f !important;
+}
+.osahan-account-page-left .nav-link.active i {
+    background: #282c3f !important;
+}
+.osahan-user-media img {
+    width: 90px;
+}
+.card offer-card h5.card-title {
+    border: 2px dotted #000;
+}
+.card.offer-card h5 {
+    border: 1px dotted #daceb7;
+    display: inline-table;
+    color: #17a2b8;
+    margin: 0 0 19px 0;
+    font-size: 15px;
+    padding: 6px 10px 6px 6px;
+    border-radius: 2px;
+    background: #fffae6;
+    position: relative;
+}
+.card.offer-card h5 img {
+    height: 22px;
+    object-fit: cover;
+    width: 22px;
+    margin: 0 8px 0 0;
+    border-radius: 2px;
+}
+.card.offer-card h5:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid #daceb7;
+    content: "";
+    left: 30px;
+    position: absolute;
+    bottom: 0;
+}
+.card.offer-card h5:before {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #daceb7;
+    content: "";
+    left: 30px;
+    position: absolute;
+    top: 0;
+}
+.payments-item .media {
+    align-items: center;
+}
+.payments-item .media img {
+    margin: 0 40px 0 11px !important;
+}
+.reviews-members .media .mr-3 {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+}
+.order-list img.mr-4 {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075)!important;
+    border-radius: 2px;
+}
+.osahan-cart-item p.text-gray.float-right {
+    margin: 3px 0 0 0;
+    font-size: 12px;
+}
+.osahan-cart-item .food-item {
+    vertical-align: bottom;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: #000000;
+}
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.rounded-pill {
+    border-radius: 50rem!important;
+}
+a:hover{
+    text-decoration:none;
+}
+{% comment %} Added Navbar {% endcomment %}
+.uln {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+  margin-top: -20px;
+}
+
+.lin {
+  float: left;
+}
+
+.lin a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.lin a:hover:not(.active) {
+  background-color: #17a2b8;
+}
+
+
+.bio-row {
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+    padding:0 15px;
+}
+
+.bio-row p span {
+    width: 100px;
+    display: inline-block;
+}
+
+/* ------------------------ LOADING ----------------*/
+@-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spin {
+    0% {
+      -moz-transform: rotate(0deg);
+  }
+  100% {
+      -moz-transform: rotate(360deg);
+  }
+}
+@-o-keyframes spin {
+    0% {
+      -o-transform: rotate(0deg);
+  }
+  100% {
+      -o-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      transform: rotate(360deg);
+  }
+}
+.loading-container {
+    z-index: 2000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .55);
+}
+.loading-container.loading-inactive {
+    display: none;
+}
+.loading-container.loading-inactive .loading-progress {
+    display: none;
+}
+.loading-container .loading-progress {
+    z-index: 2000;
+    position: fixed;
+    height: 10px;
+    width: 10px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.loading-container .loading-progress .rotator {
+    -webkit-animation: spin 5s infinite linear;
+    -moz-animation: spin 5s infinite linear;
+    -o-animation: spin 5s infinite linear;
+    animation: spin 5s infinite linear;
+}
+.loading-container .loading-progress>.rotator {
+    left: -100px;
+}
+.loading-container .rotator {
+    -webkit-background-origin: border-box;
+    -moz-background-origin: border-box;
+    background-origin: border-box;
+    background-color: #fff;
+    width: 200px;
+    height: 7px;
+    opacity: .75;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.loading-container .colored {
+    background-color: #2dc3e8!important;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #dc3545;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+label{
+    text-align: right; 
+    clear: both; 
+    float:left; 
+    margin-right:15px;
+    font-family: initial;
+    font-size: medium;
+}
+
+{% comment %} end alert {% endcomment %}
+    </style>
+</head>
+<body style="background-color: darkcyan;">
+<ul class="uln">
+  <li class="lin"><img src="{% static 'images/logonav.png'  %}" width="" height="50px"></li>
+  <li class="lin"><a href="/Find_Medic/">Home</a></li>
+  <li class="lin"><a href="/Find_Medic/news">News</a></li>
+  {% comment %} <li class="lin"><a href="">Feedback</a></li> {% endcomment %}
+{% if user.is_authenticated %}
+  <li class="lin"><a href="{% url 'BrowseDoctors' %}">Search Doctors</a></li>
+  {% if user.usertype.usertype == "doctor" %}
+  <li class="lin" style="float:left"><a class="activen" href="/Find_Medic/viewdoctorprofile">Profile</a></li>
+
+ {% if user.docprofile.photo.url != "" %}
+  <li class="lin" style="float:right"><a class="activen" href="/Find_Medic/Logout">({{user.username}}) Logout 
+  <img style="border-radius: 13px" width="23px" height="23px" src="{{user.doctorprofile.photo.url}}"></a></li>
+  {% else %}
+
+  <li class="lin" style="float:right"><a class="activen" href="/Find_Medic/Logout">({{user.username}}) Logout <img width="23px" height="23px" src="{% static 'images/profile-icon.svg' %}"></a></li>
+   {% endif %}
+  {% elif user.usertype.usertype == "user" %}
+  <li class="lin" style="float:left"><a class="activen" href="/Find_Medic/View_my_profile">Profile</a></li>
+  <li class="lin" style="float:right"><a class="activen" href="/Find_Medic/Logout">({{user.username}}) Logout <img width="23px" height="23px" src="{% static 'images/profile-icon.svg' %}"></a></li>
+  {% endif %}
+
+  
+  
+{% else %}
+  <li class="lin" style="float:right"><a class="activen" href="/Find_Medic/login"> Login/Sign Up</a></li>
+
+{% endif %}
+
+
+</ul>
+
+<link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="osahan-account-page-left shadow-sm bg-white ">
+                <div class="border-bottom p-4">
+                    <div class="osahan-user text-center">
+                        <div class="osahan-user-media">
+                    {% if user.is_authenticated  and user.usertype.usertype == 'doctor' and user.doctorprofile.photo != "" %}
+                            <img class="mb-3 rounded-pill shadow-sm mt-1" src="{{user.doctorprofile.photo.url}}" alt="gurdeep singh osahan">
+                    {% else %}
+                            <img class="mb-3 rounded-pill shadow-sm mt-1" src="{% static 'images/profile-icon.svg' %}" alt="gurdeep singh osahan">
+                    {% endif %}
+                            <div class="osahan-user-media-body">
+                                {% if user.is_authenticated %}
+                                    <h6 class="mb-2">{{user.first_name}}</h6>
+                                    {% if user.doctorprofile.contno == "" and user.usertype.usertype == "doctor"  %}
+                                    <a href="/Find_Medic/viewdoctorprofile">Complete profile</a>
+                                    {% elif user.userprofile.contno == "" and user.usertype.usertype == "user"  %}
+                                    <a href="/Find_Medic/View_my_profile">Complete profile</a>
+                                    {% else %}
+                                    <p class="mb-1">{{user.userprofile.contno}}</p>
+                                    {% endif %}
+                                    
+                                
+                                            <p>{{user.email}}</p>
+                                            {% if user.usertype.usertype == "doctor"  %}
+                                            <p class="mb-0 text-black font-weight-bold"><a class="text-primary mr-3" href="/Find_Medic/viewdoctorprofile"><i class="icofont-ui-edit"></i> EDIT</a></p>
+                                            {% elif user.usertype.usertype == "user" %}
+                                           <p class="mb-0 text-black font-weight-bold"><a class="text-primary mr-3"  href="/Find_Medic/View_my_profile"><i class="icofont-ui-edit"></i> EDIT</a></p>
+                                            {% endif %}
+                                {% else %}
+                                    <p>Sign Up and Complete your profile</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                        <a href="#"><img src="{% static 'images/logofindmedic.png' %} " style="width: 14pc; margin-left: 18px;" ></a>
+                        {% comment %} <a href="#">top</a> {% endcomment %}
+                     
+            </div>
+        </div>
+        <div class="col-md-9" style="margin-bottom: 20px;">
+            <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane  fade  active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                        <h4 class="font-weight-bold mt-0 mb-4">Book Appointment</h4>
+                        
+
+{% block content %}
+
+{% endblock %}
+
+                       </div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
+    
+</div>
+
+
+
+
+
+
+
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(window)
+  .load(function () {
+      setTimeout(function () {
+          $('.loading-container')
+              .addClass('loading-inactive');
+              /*in production, remove this line*/
+              $("#loading-text").addClass('text-success').html('page loaded');
+      }, 500);//in production change 8000 to 0
+  });
+</script>
+
+
+
+</body>
+</html>

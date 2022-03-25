@@ -1,0 +1,21 @@
+{% extends 'patientdetails_generic.html' %}
+{% block title %}- Confim Delete Patient Request{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<div class="profile-info col-md-4">
+      <div class="panel">
+ <div class="panel-body bio-graph-info">
+ <form method="post">  
+    {% csrf_token %}  
+     Are you sure you want to delete "{{ object }}" ?  
+     <input type="submit" value="Submit" />  
+ </form>  
+ </div>
+ </div>
+ </div>
+ {% else %}
+<div class="profile-info col-md-9">
+<h2 style="color: white;">You need to log in first <a style="color: black;" href="/Find_Medic/login">click here to redirect</a></h2>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'profile.html' %}
+
+{% block title %}View User Profile{% endblock %}
+
+{% block content %}
+<div class="profile-info col-md-9">
+      <div class="panel">
+ <div class="panel-body bio-graph-info">
+ {% for message in messages %}
+
+{% if message.tags == 'error' %}
+    <p style="color: red;">{{message}}</p>
+{% elif message.tags == 'info' %}
+    {% comment %} <script>
+        window.onload = function(){
+            alert('{{message}}')
+        }
+    </script> {% endcomment %}
+    <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong>Success!</strong> {{message}}.
+    </div>
+{% endif %}
+{% endfor %}
+              <h2>Welcome {{user.first_name}} !</h2>{{timeT}}<hr>
+              <h1>[ Bio Graph ]</h1><hr>
+              <div class="row">
+                  <div class="bio-row">
+                      <p><span>Full Name </span>: {{user.first_name}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>User Name </span>: {{user.username}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Email </span>: {{user.email}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Age</span>: {{user.userprofile.age}} </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Date of Birth</span>: {{user.userprofile.dob}} </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Blood group </span>: {{user.userprofile.bgroup}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Gender </span>: {{user.userprofile.gender}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Contact </span>: {{user.userprofile.contno}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Address </span>: {{user.userprofile.address}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>City </span>: {{user.userprofile.city}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>State </span>: {{user.userprofile.state}}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+{% endblock  %}
+
+
+

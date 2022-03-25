@@ -1,0 +1,200 @@
+{% extends 'blue_sign_up.html' %}
+{% block title %}| Login {% endblock %}
+{% block content %}
+<br><br><br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-11 mt-60 mx-md-auto">
+            <div class="login-box bg-white pr-lg-5 pr-0">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-md-6 order-md-last">
+                        <div class="form-wrap bg-white">
+                            <h4 class="btm-sep pb-3 mb-5">Log In</h4>
+                            {% comment %} <form class="form" method="post" action="#"> {% endcomment %}
+                <form action="/Find_Medic/Login" class="form" method="POST">
+                            {% comment %} <form  action="/Find_Medic/Signup" method="POST" > {% endcomment %}
+                  {% csrf_token %}
+                                <div class="row">
+                                   
+                                    
+                                    <div class="col-12">
+                                        <div class="form-group position-relative">
+                                            <span class="zmdi zmdi-account"></span>
+                                            <input type="text" id="username" name="usernamel" class="form-control" placeholder="Username">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <div class="form-group position-relative">
+                                            <span class="zmdi zmdi-lock"></span>
+                                            <input type="password" id="password" name="passwordl" class="form-control" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    {% for message in messages %}
+
+                                    {% if message.tags == 'error' %}
+                                        <p style="color: red;">{{message}}</p>
+                                    {% elif message.tags == 'info' %}
+                                        <script>
+                                            window.onload = function(){
+                                                alert('{{message}}')
+                                            }
+                                        </script>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <div class="col-12">
+                                        <button type="submit" id="submit" class="btn btn-lg btn-custom btn-dark btn-block">
+                                            Log In
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-6 order-md-first">
+                        <div class="content text-center">
+                            <div class="border-bottom pb-5 mb-5">
+                                <h3 class="c-black">Don't have an account?</h3>
+                                <a href="/Find_Medic/signup" class="btn btn-custom">Sign up/Register</a>
+                            </div>
+                            <a href="/Find_Medic" class="btn btn-custom">home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <a href="/Find_Medic" class="logo">Logo</a>
+    </header>
+    
+
+
+
+
+if request.user.is_authenticated:
+        if request.method == 'POST':
+            userd = request.user
+            photo = request.POST['photo']
+            gender = request.POST['gender']
+            specialist = request.POST['specialist']
+            degree = request.POST['degree']
+            licence = request.POST['licence']
+            contno = request.POST['contno']
+            address = request.POST['address']
+            fee = request.POST['fee']
+            city = request.POST['city']
+            state = request.POST['state']
+
+            userv = doctorprofile(user = userd, photo=photo, gender=gender, specialist=specialist, degree=degree, licence=licence, contno=contno, address=address, fee=fee, city=city, state=state)
+            userv.save()
+            messages.info(request, 'details Uploaded Successfully!')
+            return redirect('/Find_Medic/viewdoctorprofile')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <main>
+        <!-- Content changes here -->
+        <div class="container">
+            <h2>Login</h2>
+                <form action="/Find_Medic/Login" class="form-container" method="POST">
+                {% csrf_token %}
+                    <label for="username">Username</label>
+                    <input type="text" name="usernamel" id="" placeholder="username">
+                    
+                    <label for="password">Password</label>
+                    <input type="password" name="passwordl" id="" placeholder="password">
+                    
+                    {% for message in messages %}
+
+                    {% if message.tags == 'error' %}
+                        <p style="color: red;">{{message}}</p>
+                    {% elif message.tags == 'info' %}
+                        <script>
+                            window.onload = function(){
+                                alert('{{message}}')
+                            }
+                        </script>
+                    {% endif %}
+                    {% endfor %}
+
+                    <button type="submit">Login</button>
+                </form>
+                <hr>
+            <p>Don't have an account? <a href="/Find_Medic/signup">Sign Up</a> </p>
+        </div>
+        <!-- Content changes end here -->
+    </main>
+</body>
+</html> {% endcomment %}

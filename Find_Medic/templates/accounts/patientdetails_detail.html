@@ -1,0 +1,97 @@
+{% extends 'patientdetails_generic.html' %}
+{% block title %}- See Patient Profile{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="profile-info col-md-9">
+<div class="panel">
+<div class="panel-body bio-graph-info">
+
+<h6>/<a href="/Find_Medic/viewuserrequests/"> back </a>/ {{object.name}}</h6><hr>
+ <h2>Patient Details<br>
+              <h1></h1><br>
+              <div class="row">
+                  {% if user.usertype.usertype == "user" %}
+                  <div class="bio-row">
+                      <p><span>Doctor Name </span>: {{object.doctorname}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Clinic/Hospital </span>: {{object.Clinic_or_Hospital_name}}</p>
+                  </div>
+                  {% endif %}
+                  <div class="bio-row">
+                      <p><span>Invoice Id </span>: {{object.pid}}/{{object.id}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Full Name </span>: {{object.name}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Age </span>: {{object.age}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Gender </span>: {{object.gender}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Blood Group </span>: {{object.bgroup}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Contact </span>: {{object.contact}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Email </span>: {{object.email}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Address </span>: {{object.address}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>City </span>: {{object.city}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>State </span>: {{object.state}}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p>{% if object.request %}<span style="color: green;">Appointed Date : </span><span style="color: green;"> {{object.date}} </span>{% else %}
+                      <span>Requested Date </span> : {{object.date}} {% endif %}</p>
+                  </div>
+                  <div class="bio-row">
+                    <p>{% if object.request %}<span style="color: green;">Appointed Date : </span><span style="color: green;">{{object.time}} </span>{% else %}
+                      <span>Requested Date </span> : {{object.time}} {% endif %}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Request </span>: {% if object.request %}Accepted{% else %}Not Accepted{% endif %}</p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Requested On </span>: {{object.nowdatetime}}</p>
+                  </div>
+                  {% if not object.dategone %}
+                  <div class="bio-row">
+                      <p><span>Change </span>: <a href="{% url 'ConfirmUserRequest' object.id %}">click</a></p>
+                  </div>
+                </div>
+                  {% endif %}
+                  <hr>
+                  <div class="">
+                       {% if user.usertype.usertype == "user" %}
+                      <h5><span>Purpose of meeting </span>: {{object.purpose_of_meeting}}</h5><hr>
+                      <h5><span>Doctor's Message </span>: {{object.give_a_message}}</h5>
+
+                       {% elif user.usertype.usertype == "doctor" %}
+                      <h5><span>Purpose of meeting </span>: {{object.purpose_of_meeting}}</h5><hr>
+                      <h5><span>Message given</span>: {{object.give_a_message}}</h5>
+                      {% endif %}
+                  </div>
+
+
+</div>
+</div>
+</div>
+{% else %}
+<div class="profile-info col-md-9">
+<h2 style="color: white;">You need to log in first <a style="color: black;" href="/Find_Medic/login">click here to redirect</a></h2>
+</div>
+
+{% endif %}
+
+
+{% endblock %}
