@@ -656,6 +656,7 @@ body{margin-top:20px;}
             {% endif %}
             {% if user.userprofile.gender != "" %}
               <li {% if request.path == '/Find_Medic/changeuserprofile' %}class="active"{% endif %}><a href="/Find_Medic/changeuserprofile" {% if user.userprofile.gender == "" %}class="disabled"{% endif %}> <i class="fa fa-edit"></i> Edit profile</a></li>
+              <li {% if request.path == '/Find_Medic/chat' %}class="active"{% endif %}><a href="/Find_Medic/chat" > <i class="far fa-comment-alt">&#xf075;</i>Chat</a></li>
             {% endif %}
 
           {% elif user.usertype.usertype == "doctor" %}
@@ -667,6 +668,7 @@ body{margin-top:20px;}
             {% endif %}
             {% if user.doctorprofile.gender != "" %}
               <li {% if request.path == '/Find_Medic/changedoctorprofile' %}class="active"{% endif %}><a href="/Find_Medic/changedoctorprofile" {% if user.doctorprofile.gender == "" %}class="disabled"{% endif %}> <i class="fa fa-edit"></i> Edit profile</a></li>
+              <li {% if request.path == '/Find_Medic/chat' %}class="active"{% endif %}><a href="/Find_Medic/chat" {% if user.doctorprofile.gender == "" %}class="disabled"{% endif %}> <i class="far fa-comment-alt">&#xf075;</i> Chat</a></li>
             {% endif %}
           {% endif %}
           </ul>

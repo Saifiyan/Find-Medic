@@ -41,17 +41,33 @@
                     <div class="list-group bg-dark" id='user-list'>
                         {% for f in appt %} {% if f.pid == user.id or f.did == user.id %}
                         {% if user.usertype.usertype == "user" %}
+                        {% if f.request != False %}
                         <a class="list-group-item bg-dark text-white" href="{% url 'chat-home' %}?u={{f.did}}">
                             <div>
-                                <p>{{f.doctorname}}</p>
+                                <p>Dr. {{f.doctorname}}</p>
                             </div>
                         </a>
-                        {% elif user.usertype.usertype == "doctor" %}
-                        <a class="list-group-item bg-dark text-white" href="{% url 'chat-home' %}?u={{f.pid}}">
+                        {% else %}
+                        <a class="list-group-item bg-dark text-white">
                             <div>
-                                <p>{{f.name}}</p>
+                                <p>Dr. {{f.doctorname}} request not accepted</p>
                             </div>
                         </a>
+                            {% endif %}
+                            {% elif user.usertype.usertype == "doctor" %}
+                            {% if f.request != False %}
+                            <a class="list-group-item bg-dark text-white" href="{% url 'chat-home' %}?u={{f.pid}}">
+                                <div>
+                                    <p>{{f.name}}</p>
+                                </div>
+                            </a>
+                            {% else %}
+                            <a class="list-group-item bg-dark text-white">
+                                <div>
+                                    <p>for {{f.doctorname}} request not accepted</p>
+                                </div>
+                            </a>
+                            {% endif %}
                         {% endif %}
                         {% endif %} {% endfor %}
                     </div>
